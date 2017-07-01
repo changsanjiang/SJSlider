@@ -62,8 +62,6 @@
 
 @property (nonatomic, strong, readonly) SJContainerView *containerView;
 
-@property (nonatomic, assign, readwrite) SJSliderOrientation orientation;
-
 @end
 
 @implementation SJSlider
@@ -74,45 +72,30 @@
 @synthesize thumbImageView = _thumbImageView;
 @synthesize pan = _pan;
 
-- (instancetype)initWithOrientation:(SJSliderOrientation)orientation {
-    self = [super initWithFrame:CGRectZero];
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
     if ( !self ) return nil;
-    [self _SJSliderSetupUI];
     
-
-    self.orientation = orientation;
-    
-    if      ( _orientation == SJSliderOrientationSidewards )
-        self.thickness = 8.0;
-    else if ( _orientation == SJSliderOrientationEndways )
-        self.thickness = 100.0;
-    
+    self.trackHeight = 8.0;
     self.minValue = 0.0;
     self.maxValue = 1.0;
+    
+    [self _SJSliderSetupUI];
     
     [self _SJSliderPanGR];
     
     [self _SJSliderObservers];
-
+    
     return self;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame {
-    return [self initWithOrientation:SJSliderOrientationSidewards];
 }
 
 // MARK: Setter
 
-- (void)setThickness:(CGFloat)thickness {
-    _thickness = thickness;
-    if      ( _orientation == SJSliderOrientationSidewards )
-        [self.containerView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.offset(thickness);
-        }];
-    else if ( _orientation == SJSliderOrientationEndways )
-        [self.containerView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.width.offset(thickness);
-        }];
+- (void)setTrackHeight:(CGFloat)trackHeight {
+    _trackHeight = trackHeight;
+    [self.containerView mas_updateConstraints:^(MASConstraintMaker *make) {
+       make.height.offset(self.trackHeight);
+    }];
 }
 
 - (void)setValue:(CGFloat)value {
@@ -135,18 +118,8 @@
     [super layoutSubviews];
     CGFloat x = 0;
     CGFloat y = 0;
-    CGFloat w = 0;
-    CGFloat h = 0;
-    
-    if      ( _orientation == SJSliderOrientationSidewards ) {
-        w = self.csj_w * self.rate;
-        h = self.csj_h;
-    }
-    else if ( _orientation == SJSliderOrientationEndways ) {
-        w = self.csj_w;
-        h = self.csj_h * self.rate;
-    }
-    
+    CGFloat w = self.csj_w * self.rate;
+    CGFloat h = self.csj_h;
     _traceImageView.frame = CGRectMake(x, y, w, h);
 }
 
@@ -182,36 +155,9 @@
     }
     
     CGPoint offset = [pan translationInView:pan.view];
-    if      ( _orientation == SJSliderOrientationSidewards ) {
-        self.value += offset.x * 0.00365;
-    }
-    else if ( _orientation == SJSliderOrientationEndways ) {
-        self.value += offset.y * 0.00365;
-    }
+    self.value += offset.x * 0.00365;
     [pan setTranslation:CGPointMake(0, 0) inView:pan.view];
 }
-
-// MARK: Setter
-
-- (void)setOrientation:(SJSliderOrientation)orientation {
-    _orientation = orientation;
-    [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.trailing.offset(0);
-        make.center.offset(0);
-    }];
-//    if      ( _orientation == SJSliderOrientationSidewards ) {
-//        [_containerView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.leading.trailing.offset(0);
-//            make.center.offset(0);
-//        }];    }
-//    else if ( _orientation == SJSliderOrientationEndways ) {
-//        [_containerView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.top.bottom.offset(0);
-//            make.center.offset(0);
-//        }];
-//    }
-}
-
 
 // MARK: UI
 
@@ -220,6 +166,11 @@
     [self.containerView addSubview:self.trackImageView];
     [self.containerView addSubview:self.traceImageView];
     [self addSubview:self.thumbImageView];
+    
+    [_containerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.trailing.offset(0);
+        make.center.offset(0);
+    }];
     
     [_trackImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.offset(0);
@@ -247,7 +198,7 @@
 - (UIImageView *)traceImageView {
     if ( _traceImageView ) return _traceImageView;
     _traceImageView = [self imageViewWithImageStr:@""];
-    _traceImageView.backgroundColor = [UIColor greenColor];
+    _traceImageView.backgroundColor = [UIColor redColor];
     return _traceImageView;
 }
 
@@ -282,12 +233,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context  {
     if ( ![keyPath isEqualToString:@"value"] ) return;
-    if      ( _orientation == SJSliderOrientationSidewards ) {
-        _traceImageView.csj_w = self.csj_w * self.rate;
-    }
-    else if ( _orientation == SJSliderOrientationEndways ) {
-        _traceImageView.csj_h = self.csj_h * self.rate;
-    }
+    _traceImageView.csj_w = self.csj_w * self.rate;
 }
 
 

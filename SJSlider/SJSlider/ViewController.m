@@ -23,9 +23,9 @@
     
     self.view.backgroundColor = [UIColor lightGrayColor];
     
-    self.slider = [[SJSlider alloc] initWithOrientation:SJSliderOrientationEndways];
+    self.slider = [[SJSlider alloc] init];
     
-    _slider.frame = CGRectMake(20, 100, 15, 200);
+    _slider.frame = CGRectMake(20, 100, 200, 10);
     
     [self.view addSubview:self.slider];
     

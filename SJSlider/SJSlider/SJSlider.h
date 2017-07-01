@@ -8,23 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, SJSliderOrientation) {
-    /*!
-     *  横着
-     */
-    SJSliderOrientationSidewards = 0,
-    
-    /*!
-     *  竖着
-     */
-    SJSliderOrientationEndways,
-};
-
 @protocol SJSliderDelegate;
 
 @interface SJSlider : UIView
-
-@property (nonatomic, assign, readonly) SJSliderOrientation orientation;
 
 /*!
  *  轨道
@@ -47,9 +33,9 @@ typedef NS_ENUM(NSUInteger, SJSliderOrientation) {
 @property (nonatomic, assign, readwrite) CGFloat value;
 
 /*!
- *  设置轨道厚度. default is 8.0;
+ *  设置轨道高度. default is 8.0;
  */
-@property (nonatomic, assign, readwrite) CGFloat thickness;
+@property (nonatomic, assign, readwrite) CGFloat trackHeight;
 
 /*!
  *  最小值. default is 0.0;
@@ -66,7 +52,6 @@ typedef NS_ENUM(NSUInteger, SJSliderOrientation) {
 
 @property (nonatomic, strong, readonly) UIPanGestureRecognizer *pan;
 
-- (instancetype)initWithOrientation:(SJSliderOrientation)orientation;
 
 @end
 

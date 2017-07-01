@@ -13,8 +13,8 @@
 		7736AF0A1EFD15A1007341CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7736AF081EFD15A1007341CA /* Main.storyboard */; };
 		7736AF0C1EFD15A1007341CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7736AF0B1EFD15A1007341CA /* Assets.xcassets */; };
 		7736AF0F1EFD15A1007341CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7736AF0D1EFD15A1007341CA /* LaunchScreen.storyboard */; };
-		7736AF191EFD15D0007341CA /* SJSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7736AF181EFD15D0007341CA /* SJSlider.m */; };
 		7736AF1C1EFD168F007341CA /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 7736AF1B1EFD168F007341CA /* UIView+Extension.m */; };
+		77E65FA01F0746420030A0B1 /* SJSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E65F9F1F0746420030A0B1 /* SJSlider.m */; };
 		D17A0F5050AF55F2BE0527E2 /* libPods-SJSlider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49D17B2DEF84DC642A257D7F /* libPods-SJSlider.a */; };
 /* End PBXBuildFile section */
 
@@ -32,10 +32,10 @@
 		7736AF0B1EFD15A1007341CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7736AF0E1EFD15A1007341CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7736AF101EFD15A1007341CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7736AF171EFD15D0007341CA /* SJSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSlider.h; sourceTree = "<group>"; };
-		7736AF181EFD15D0007341CA /* SJSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSlider.m; sourceTree = "<group>"; };
 		7736AF1A1EFD168F007341CA /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		7736AF1B1EFD168F007341CA /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		77E65F9E1F0746420030A0B1 /* SJSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSlider.h; sourceTree = "<group>"; };
+		77E65F9F1F0746420030A0B1 /* SJSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSlider.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,8 +113,8 @@
 		7736AF161EFD15AC007341CA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				7736AF171EFD15D0007341CA /* SJSlider.h */,
-				7736AF181EFD15D0007341CA /* SJSlider.m */,
+				77E65F9E1F0746420030A0B1 /* SJSlider.h */,
+				77E65F9F1F0746420030A0B1 /* SJSlider.m */,
 				7736AF1A1EFD168F007341CA /* UIView+Extension.h */,
 				7736AF1B1EFD168F007341CA /* UIView+Extension.m */,
 			);
@@ -245,8 +245,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7736AF1C1EFD168F007341CA /* UIView+Extension.m in Sources */,
+				77E65FA01F0746420030A0B1 /* SJSlider.m in Sources */,
 				7736AF071EFD15A1007341CA /* ViewController.m in Sources */,
-				7736AF191EFD15D0007341CA /* SJSlider.m in Sources */,
 				7736AF041EFD15A1007341CA /* AppDelegate.m in Sources */,
 				7736AF011EFD15A1007341CA /* main.m in Sources */,
 			);
@@ -414,6 +414,7 @@
 				7736AF151EFD15A1007341CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
