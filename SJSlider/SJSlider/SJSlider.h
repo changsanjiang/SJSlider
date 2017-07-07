@@ -47,13 +47,40 @@
  */
 @property (nonatomic, assign, readwrite) CGFloat maxValue;
 
-
 @property (nonatomic, weak) id <SJSliderDelegate>delegate;
 
+/*!
+ *  触动手势
+ */
 @property (nonatomic, strong, readonly) UIPanGestureRecognizer *pan;
 
+@end
+
+
+
+// MARK: 缓冲
+
+
+@interface SJSlider (SJBufferProgress)
+
+/*!
+ *  开启缓冲进度. default is NO.
+ */
+@property (nonatomic, assign, readwrite) BOOL enableBufferProgress;
+
+/*!
+ *  缓冲进度颜色. default is grayColor
+ */
+@property (nonatomic, strong, readwrite) UIColor *bufferProgressColor;
+
+/*!
+ *  缓冲进度
+ */
+@property (nonatomic, assign, readwrite) CGFloat bufferProgress;
 
 @end
+
+
 
 
 @protocol SJSliderDelegate <NSObject>
