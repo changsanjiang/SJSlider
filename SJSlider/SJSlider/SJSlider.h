@@ -85,8 +85,14 @@
 
 @protocol SJSliderDelegate <NSObject>
 
+/*!
+ *  正在滑动
+ */
 - (void)slidingOnSlider:(SJSlider *)slider;
 
+/*!
+ *  滑动完成
+ */
 - (void)slidesOnSlider:(SJSlider *)slider;
 
 @end
