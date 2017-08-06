@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor lightGrayColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     self.slider = [[SJSlider alloc] init];
     
@@ -30,6 +30,10 @@
     [self.view addSubview:self.slider];
     
     _slider.value = 0.5;
+    
+    _slider.borderWidth = 1;
+    
+    _slider.borderColor = [UIColor redColor];
     
     // Do any additional setup after loading the view, typically from a nib.
 }

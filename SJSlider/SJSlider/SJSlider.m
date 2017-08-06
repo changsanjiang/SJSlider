@@ -152,6 +152,16 @@
     _value = value;
 }
 
+- (void)setBorderColor:(UIColor *)borderColor {
+    _borderColor = borderColor;
+    _containerView.layer.borderColor = borderColor.CGColor;
+}
+
+- (void)setBorderWidth:(CGFloat)borderWidth {
+    _borderWidth = borderWidth;
+    _containerView.layer.borderWidth = borderWidth;
+}
+
 // MARK: 生命周期
 
 - (void)dealloc {
@@ -231,6 +241,8 @@
     [self.containerView addSubview:self.traceImageView];
     [self addSubview:self.thumbImageView];
     
+    _containerView.layer.borderWidth = 0.5;
+    _containerView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     [_containerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.trailing.offset(0);
         make.center.offset(0);

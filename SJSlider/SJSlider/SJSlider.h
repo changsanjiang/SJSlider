@@ -28,6 +28,18 @@
 @property (nonatomic, strong, readonly) UIImageView *thumbImageView;
 
 /*!
+ *  borderColor
+ *  default is lightGrayColor.
+ */
+@property (nonatomic, strong, readwrite) UIColor *borderColor;
+
+/*!
+ *  borderWidth
+ *  default is 0.5.
+ */
+@property (nonatomic, assign, readwrite) CGFloat borderWidth;
+
+/*!
  *  当前进度值
  */
 @property (nonatomic, assign, readwrite) CGFloat value;
