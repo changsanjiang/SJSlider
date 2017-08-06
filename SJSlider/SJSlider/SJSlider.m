@@ -291,7 +291,7 @@
 
 - (UIImageView *)imageViewWithImageStr:(NSString *)imageStr {
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageStr]];
-    imageView.contentMode = UIViewContentModeScaleToFill;
+    imageView.contentMode = UIViewContentModeCenter;
     imageView.clipsToBounds = YES;
     return imageView;
 }

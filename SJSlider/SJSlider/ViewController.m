@@ -31,9 +31,17 @@
     
     _slider.value = 0.5;
     
-    _slider.borderWidth = 1;
     
-    _slider.borderColor = [UIColor redColor];
+    SJSlider *slider = [SJSlider new];
+    
+    slider.frame = CGRectMake(20, 120, 200, 10);
+    
+    [self.view addSubview:slider];
+    
+    slider.value = 0.6;
+    
+    slider.traceImageView.image = [UIImage imageNamed:@"progress"];
+    slider.thumbImageView.image = [UIImage imageNamed:@"thumb"];
     
     // Do any additional setup after loading the view, typically from a nib.
 }
