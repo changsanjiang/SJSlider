@@ -7,8 +7,11 @@
 //
 
 #import "SJSlider.h"
+
 #import "UIView+Extension.h"
+
 #import <Masonry.h>
+
 #import <objc/message.h>
 
 @interface SJContainerView : UIView @end
@@ -239,7 +242,6 @@
     [self.containerView addSubview:self.trackImageView];
     [self.containerView addSubview:self.bufferProgressView];
     [self.containerView addSubview:self.traceImageView];
-    [self addSubview:self.thumbImageView];
     
     _containerView.layer.borderWidth = 0.5;
     _containerView.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -250,11 +252,6 @@
     
     [_trackImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.offset(0);
-    }];
-    
-    [_thumbImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(_traceImageView.mas_trailing);
-        make.centerY.equalTo(_thumbImageView.superview);
     }];
     
     [_bufferProgressView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -286,6 +283,11 @@
 - (UIImageView *)thumbImageView {
     if ( _thumbImageView ) return _thumbImageView;
     _thumbImageView = [self imageViewWithImageStr:@""];
+    [self addSubview:self.thumbImageView];
+    [_thumbImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_traceImageView.mas_trailing);
+        make.centerY.equalTo(_thumbImageView.superview);
+    }];
     return _thumbImageView;
 }
 
