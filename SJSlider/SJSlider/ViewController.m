@@ -11,9 +11,6 @@
 
 @interface ViewController ()
 
-@property (nonatomic, strong) SJSlider *slider;
-
-
 @end
 
 @implementation ViewController
@@ -23,25 +20,50 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.slider = [[SJSlider alloc] init];
     
-    _slider.frame = CGRectMake(20, 100, 200, 10);
+    SJSlider *slider0 = ({
+        SJSlider *slider = [SJSlider new];
+        slider.frame = CGRectMake(20, 100, 200, 10);
+        
+        [self.view addSubview:slider];
+        
+        slider.value = 0.5;
+        
+        slider;
+    });
     
-    [self.view addSubview:self.slider];
+    SJSlider *slider1 = ({
+        SJSlider *slider = [SJSlider new];
+        slider.frame = CGRectMake(20, 120, 200, 10);
+        
+        [self.view addSubview:slider];
+        
+        slider.value = 0.6;
+        
+        slider.traceImageView.image = [UIImage imageNamed:@"progress"];
+        slider.thumbImageView.image = [UIImage imageNamed:@"thumb"];
+        
+        slider;
+    });
     
-    _slider.value = 0.5;
     
+    SJSlider *slider2 = ({
+        SJSlider *slider = [SJSlider new];
+        slider.frame = CGRectMake(20, 140, 200, 10);
+        
+        [self.view addSubview:slider];
+        
+        slider.value = 0.6;
+        
+        slider.traceImageView.image = [UIImage imageNamed:@"progress"];
+        
+        slider.enableBufferProgress = YES;
+        slider.bufferProgress = 0.3;
+        
+        slider;
+    });
     
-    SJSlider *slider = [SJSlider new];
-    
-    slider.frame = CGRectMake(20, 120, 200, 10);
-    
-    [self.view addSubview:slider];
-    
-    slider.value = 0.6;
-    
-    slider.traceImageView.image = [UIImage imageNamed:@"progress"];
-    slider.thumbImageView.image = [UIImage imageNamed:@"thumb"];
+    NSLog(@"%@ - %@ - %@", slider0, slider1, slider2);
     
     // Do any additional setup after loading the view, typically from a nib.
 }
