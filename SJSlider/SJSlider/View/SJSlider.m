@@ -240,8 +240,8 @@
 - (void)_SJSliderSetupUI {
     [self addSubview:self.containerView];
     [self.containerView addSubview:self.trackImageView];
-    [self.containerView addSubview:self.traceImageView];
     [self.containerView addSubview:self.bufferProgressView];
+    [self.containerView addSubview:self.traceImageView];
     
     _containerView.layer.borderWidth = 0.5;
     _containerView.layer.borderColor = [UIColor lightGrayColor].CGColor;

@@ -53,12 +53,12 @@
         
         [self.view addSubview:slider];
         
-        slider.value = 0.6;
+        slider.value = 0.3;
         
         slider.traceImageView.image = [UIImage imageNamed:@"progress"];
         
         slider.enableBufferProgress = YES;
-        slider.bufferProgress = 0.3;
+        slider.bufferProgress = 0.8;
         
         slider;
     });
