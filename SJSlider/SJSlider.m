@@ -8,11 +8,65 @@
 
 #import "SJSlider.h"
 
-#import "UIView+Extension.h"
-
 #import <Masonry/Masonry.h>
 
 #import <objc/message.h>
+
+
+
+
+@interface UIView (SJExtension)
+@property (nonatomic, assign) CGFloat csj_x;
+@property (nonatomic, assign) CGFloat csj_y;
+@property (nonatomic, assign) CGFloat csj_w;
+@property (nonatomic, assign) CGFloat csj_h;
+@end
+
+
+@implementation UIView (SJExtension)
+- (void)setCsj_x:(CGFloat)csj_x {
+    CGRect frame    = self.frame;
+    frame.origin.x  = csj_x;
+    self.frame      = frame;
+}
+- (CGFloat)csj_x {
+    return self.frame.origin.x;
+}
+
+
+- (void)setCsj_y:(CGFloat)csj_y {
+    CGRect frame    = self.frame;
+    frame.origin.y  = csj_y;
+    self.frame      = frame;
+}
+- (CGFloat)csj_y {
+    return self.frame.origin.y;
+}
+
+
+- (void)setCsj_w:(CGFloat)csj_w {
+    CGRect frame        = self.frame;
+    frame.size.width    = csj_w;
+    self.frame          = frame;
+}
+- (CGFloat)csj_w {
+    return self.frame.size.width;
+}
+
+
+- (void)setCsj_h:(CGFloat)csj_h {
+    CGRect frame        = self.frame;
+    frame.size.height   = csj_h;
+    self.frame          = frame;
+}
+- (CGFloat)csj_h {
+    return self.frame.size.height;
+}
+@end
+
+
+
+
 
 @interface SJContainerView : UIView @end
 
