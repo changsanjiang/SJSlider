@@ -13,8 +13,8 @@
 		7736AF0A1EFD15A1007341CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7736AF081EFD15A1007341CA /* Main.storyboard */; };
 		7736AF0C1EFD15A1007341CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7736AF0B1EFD15A1007341CA /* Assets.xcassets */; };
 		7736AF0F1EFD15A1007341CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7736AF0D1EFD15A1007341CA /* LaunchScreen.storyboard */; };
-		77BF9F231F375176008A4735 /* SJSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BF9F201F375176008A4735 /* SJSlider.m */; };
-		77BF9F241F375177008A4735 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BF9F221F375176008A4735 /* UIView+Extension.m */; };
+		778252BE1F3F1C0E006F5156 /* SJSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 778252BB1F3F1C0E006F5156 /* SJSlider.m */; };
+		778252BF1F3F1C0E006F5156 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 778252BD1F3F1C0E006F5156 /* UIView+Extension.m */; };
 		77BF9F261F375187008A4735 /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = 77BF9F251F375187008A4735 /* sample.png */; };
 		D17A0F5050AF55F2BE0527E2 /* libPods-SJSlider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49D17B2DEF84DC642A257D7F /* libPods-SJSlider.a */; };
 /* End PBXBuildFile section */
@@ -33,10 +33,10 @@
 		7736AF0B1EFD15A1007341CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7736AF0E1EFD15A1007341CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7736AF101EFD15A1007341CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		77BF9F1F1F375176008A4735 /* SJSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSlider.h; sourceTree = "<group>"; };
-		77BF9F201F375176008A4735 /* SJSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSlider.m; sourceTree = "<group>"; };
-		77BF9F211F375176008A4735 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
-		77BF9F221F375176008A4735 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		778252BA1F3F1C0E006F5156 /* SJSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJSlider.h; sourceTree = "<group>"; };
+		778252BB1F3F1C0E006F5156 /* SJSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJSlider.m; sourceTree = "<group>"; };
+		778252BC1F3F1C0E006F5156 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		778252BD1F3F1C0E006F5156 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		77BF9F251F375187008A4735 /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,7 +94,7 @@
 				7736AF031EFD15A1007341CA /* AppDelegate.m */,
 				7736AF051EFD15A1007341CA /* ViewController.h */,
 				7736AF061EFD15A1007341CA /* ViewController.m */,
-				77BF9F1E1F375176008A4735 /* View */,
+				778252B91F3F1C0E006F5156 /* SJSlider */,
 				7736AEFF1EFD15A1007341CA /* Supporting Files */,
 			);
 			path = SJSlider;
@@ -113,15 +113,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		77BF9F1E1F375176008A4735 /* View */ = {
+		778252B91F3F1C0E006F5156 /* SJSlider */ = {
 			isa = PBXGroup;
 			children = (
-				77BF9F1F1F375176008A4735 /* SJSlider.h */,
-				77BF9F201F375176008A4735 /* SJSlider.m */,
-				77BF9F211F375176008A4735 /* UIView+Extension.h */,
-				77BF9F221F375176008A4735 /* UIView+Extension.m */,
+				778252BA1F3F1C0E006F5156 /* SJSlider.h */,
+				778252BB1F3F1C0E006F5156 /* SJSlider.m */,
+				778252BC1F3F1C0E006F5156 /* UIView+Extension.h */,
+				778252BD1F3F1C0E006F5156 /* UIView+Extension.m */,
 			);
-			path = View;
+			name = SJSlider;
+			path = ../../SJSlider;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -248,9 +249,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77BF9F241F375177008A4735 /* UIView+Extension.m in Sources */,
+				778252BF1F3F1C0E006F5156 /* UIView+Extension.m in Sources */,
 				7736AF071EFD15A1007341CA /* ViewController.m in Sources */,
-				77BF9F231F375176008A4735 /* SJSlider.m in Sources */,
+				778252BE1F3F1C0E006F5156 /* SJSlider.m in Sources */,
 				7736AF041EFD15A1007341CA /* AppDelegate.m in Sources */,
 				7736AF011EFD15A1007341CA /* main.m in Sources */,
 			);
