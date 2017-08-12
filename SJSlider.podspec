@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => 'MIT', :file => 'LICENSE.md' }
   s.author       = { 'SanJiang' => 'changsanjiang@gmail.com' }
   s.platform     = :ios, '8.0'
-  s.source       = { :git => 'https://github.com/changsanjiang/SJSlider.git', :tag => '#{s.version}' }
+  s.source       = { :git => 'https://github.com/changsanjiang/SJSlider.git', :tag => "v#{s.version}" }
   s.source_files  = 'SJSlider/*.{h,m}'
   s.framework  = 'UIKit'
   s.requires_arc = true
