@@ -1,4 +1,6 @@
 # SJSlider
-滑块视图
+滑块视图     
 
-<image src = "https://github.com/changsanjiang/SJSlider/blob/master/SJSlider/SJSlider/sample.png">
+pod 'SJSlider'    
+
+<image src = "https://github.com/changsanjiang/SJSlider/blob/master/SJSliderProjectFile/SJSlider/sample.png">
