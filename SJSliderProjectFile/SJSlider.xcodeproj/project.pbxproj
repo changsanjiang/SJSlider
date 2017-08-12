@@ -375,6 +375,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0962524C52FD8358903D5056 /* Pods-SJSlider.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = DB5B5F2RH5;
 				INFOPLIST_FILE = SJSlider/Info.plist;
@@ -390,6 +391,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6E0AC0E311092298319F3C5E /* Pods-SJSlider.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SJSlider/Info.plist;
