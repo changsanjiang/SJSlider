@@ -68,7 +68,12 @@
 
 
 
-@interface SJContainerView : UIView @end
+@interface SJContainerView : UIView
+/*!
+ *  default is YES.
+ */
+@property (nonatomic, assign, readwrite) BOOL isRound;
+@end
 
 @implementation SJContainerView
 
@@ -87,7 +92,14 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.layer.cornerRadius = MIN(self.csj_w, self.csj_h) * 0.5;
+    if ( _isRound ) self.layer.cornerRadius = MIN(self.csj_w, self.csj_h) * 0.5;
+    else self.layer.cornerRadius = 0;
+}
+
+- (void)setIsRound:(BOOL)isRound {
+    _isRound = isRound;
+    if ( _isRound ) self.layer.cornerRadius = MIN(self.csj_w, self.csj_h) * 0.5;
+    else self.layer.cornerRadius = 0;
 }
 
 @end
@@ -197,6 +209,11 @@
 
 // MARK: Setter
 
+- (void)setIsRound:(BOOL)isRound {
+    _isRound = isRound;
+    _containerView.isRound = isRound;
+}
+
 - (void)setTrackHeight:(CGFloat)trackHeight {
     _trackHeight = trackHeight;
     [self.containerView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -227,6 +244,7 @@
     self.maxValue = 1.0;
     self.borderWidth = 0.4;
     self.borderColor = [UIColor lightGrayColor];
+    self.isRound = YES;
     
     self.enableBufferProgress = NO;
     self.bufferProgress = 0;

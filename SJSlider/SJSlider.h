@@ -13,6 +13,11 @@
 @interface SJSlider : UIView
 
 /*!
+ *  default is YES.
+ */
+@property (nonatomic, assign, readwrite) BOOL isRound;
+
+/*!
  *  轨道
  *  this is view, If you don't want to set up photos, You can set the background color.
  */
@@ -85,7 +90,6 @@
 /*!
  *  borderColor
  *  default is lightGrayColor.
- *  if you don't want it, you can set it to clearColor.
  */
 @property (nonatomic, strong, readwrite) UIColor *borderColor;
 
