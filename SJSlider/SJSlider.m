@@ -3,7 +3,7 @@
 //  dancebaby
 //
 //  Created by BlueDancer on 2017/6/12.
-//  Copyright © 2017年 hunter. All rights reserved.
+//  Copyright © 2017年 SanJiang. All rights reserved.
 //
 
 #import "SJSlider.h"
@@ -158,6 +158,7 @@
     else if ( bufferProgress < 0 ) bufferProgress = 0;
     objc_setAssociatedObject(self, @selector(bufferProgress), @(bufferProgress), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     dispatch_async(dispatch_get_main_queue(), ^{
+        if ( !self.bufferProgressView.superview ) return ;
         [self.bufferProgressView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.width.offset(bufferProgress * self.containerView.csj_w);
         }];
@@ -209,16 +210,6 @@
     _value = value;
 }
 
-- (void)setBorderColor:(UIColor *)borderColor {
-    _borderColor = borderColor;
-    _containerView.layer.borderColor = borderColor.CGColor;
-}
-
-- (void)setBorderWidth:(CGFloat)borderWidth {
-    _borderWidth = borderWidth;
-    _containerView.layer.borderWidth = borderWidth;
-}
-
 // MARK: 生命周期
 
 - (void)dealloc {
@@ -250,8 +241,9 @@
     CGFloat x = 0;
     CGFloat y = 0;
     CGFloat w = self.csj_w * self.rate;
-    CGFloat h = self.csj_h;
+    CGFloat h = self.trackHeight;
     _traceImageView.frame = CGRectMake(x, y, w, h);
+    if ( self.enableBufferProgress ) [self setBufferProgress:self.bufferProgress];
 }
 
 - (CGFloat)rate {
@@ -292,7 +284,7 @@
     }
     
     CGPoint offset = [pan translationInView:pan.view];
-    self.value += offset.x * 0.00365;
+    self.value += offset.x * 0.00267;
     [pan setTranslation:CGPointMake(0, 0) inView:pan.view];
 }
 
@@ -385,4 +377,48 @@
 }
 
 
+@end
+
+
+
+
+
+
+
+@implementation SJSlider (BorderLine)
+
+- (void)setVisualBorder:(BOOL)visualBorder {
+    if ( self.visualBorder == visualBorder ) return;
+    objc_setAssociatedObject(self, @selector(visualBorder), @(visualBorder), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if ( visualBorder ) {
+        _containerView.layer.borderColor = self.borderColor.CGColor;
+        _containerView.layer.borderWidth = self.borderWidth;
+    }
+    else {
+        _containerView.layer.borderColor = nil;
+        _containerView.layer.borderWidth = 0;
+    }
+}
+
+- (BOOL)visualBorder {
+    return [objc_getAssociatedObject(self, _cmd) boolValue];
+}
+
+- (void)setBorderColor:(UIColor *)borderColor {
+    objc_setAssociatedObject(self, @selector(borderColor), borderColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if ( self.visualBorder ) _containerView.layer.borderColor = borderColor.CGColor;
+}
+
+- (UIColor *)borderColor {
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setBorderWidth:(CGFloat)borderWidth {
+    objc_setAssociatedObject(self, @selector(borderWidth), @(borderWidth), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if ( self.visualBorder ) _containerView.layer.borderWidth = borderWidth;
+}
+
+- (CGFloat)borderWidth {
+    return [objc_getAssociatedObject(self, _cmd) doubleValue];
+}
 @end

@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor blackColor];
     
     
     SJSlider *slider0 = ({
@@ -59,6 +59,25 @@
         
         slider.enableBufferProgress = YES;
         slider.bufferProgress = 0.8;
+        
+        
+        /// show border line.
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            slider.visualBorder = YES;
+            slider.borderColor = [UIColor redColor];
+            slider.borderWidth = 2;
+            
+            /// hidden border line.
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                slider.visualBorder = NO;
+                
+                /// show
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    slider.visualBorder = YES;
+                });
+                
+            });
+        });
         
         slider;
     });
