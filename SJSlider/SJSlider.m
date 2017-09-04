@@ -311,7 +311,8 @@
     [self.containerView addSubview:self.traceImageView];
     
     [_containerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.trailing.offset(0);
+        make.leading.offset(5);
+        make.trailing.offset(-5);
         make.center.offset(0);
     }];
     
@@ -356,8 +357,10 @@
     _thumbImageView = [self imageViewWithImageStr:@""];
     [self addSubview:self.thumbImageView];
     [_thumbImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(_traceImageView.mas_trailing);
         make.centerY.equalTo(_thumbImageView.superview);
+        make.centerX.equalTo(_traceImageView.mas_trailing);
+        make.height.equalTo(self).multipliedBy(1.5);
+        make.width.equalTo(_thumbImageView.mas_height);
     }];
     return _thumbImageView;
 }
