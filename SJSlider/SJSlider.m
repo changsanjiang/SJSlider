@@ -359,7 +359,7 @@
     [_thumbImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(_thumbImageView.superview);
         make.centerX.equalTo(_traceImageView.mas_trailing);
-        make.height.equalTo(self).multipliedBy(1.5);
+        make.height.equalTo(self.containerView).multipliedBy(1.5);
         make.width.equalTo(_thumbImageView.mas_height);
     }];
     return _thumbImageView;
