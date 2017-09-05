@@ -311,8 +311,8 @@
     [self.containerView addSubview:self.traceImageView];
     
     [_containerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.offset(5);
-        make.trailing.offset(-5);
+        make.leading.offset(0);
+        make.trailing.offset(0);
         make.center.offset(0);
     }];
     
@@ -359,8 +359,6 @@
     [_thumbImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(_thumbImageView.superview);
         make.centerX.equalTo(_traceImageView.mas_trailing);
-        make.height.equalTo(self.containerView).multipliedBy(1.5);
-        make.width.equalTo(_thumbImageView.mas_height);
     }];
     return _thumbImageView;
 }
@@ -396,9 +394,11 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context  {
     if ( ![keyPath isEqualToString:@"value"] ) return;
+    CGFloat offset = _thumbImageView.image.size.width * 0.225;
+    if ( self.rate > 0.5 ) offset = -offset;
     [_traceImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.leading.bottom.offset(0);
-        make.width.equalTo(_traceImageView.superview).multipliedBy(self.rate);
+        make.width.equalTo(_traceImageView.superview).multipliedBy(self.rate).offset(offset);
     }];
 }
 
