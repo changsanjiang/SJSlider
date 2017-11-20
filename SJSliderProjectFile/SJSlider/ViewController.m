@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import "SJSlider.h"
+#import "SJLabelSlider.h"
+#import "SJButtonSlider.h"
 
 @interface ViewController ()
 
@@ -21,20 +23,19 @@
     self.view.backgroundColor = [UIColor blackColor];
     
     
+    // 普通状态
     SJSlider *slider0 = ({
         SJSlider *slider = [SJSlider new];
         slider.frame = CGRectMake(20, 100, 200, 10);
-        
         [self.view addSubview:slider];
-        
         slider.value = 0.5;
-        
+
         slider;
     });
     
     SJSlider *slider1 = ({
         SJSlider *slider = [SJSlider new];
-        slider.frame = CGRectMake(20, 120, 200, 10);
+        slider.frame = CGRectMake(20, 150, 200, 10);
         
         [self.view addSubview:slider];
         
@@ -53,7 +54,7 @@
     
     SJSlider *slider2 = ({
         SJSlider *slider = [SJSlider new];
-        slider.frame = CGRectMake(20, 140, 200, 10);
+        slider.frame = CGRectMake(20, 200, 200, 10);
         
         [self.view addSubview:slider];
         
@@ -88,6 +89,28 @@
         
         slider;
     });
+    
+    SJLabelSlider *l_slider = [SJLabelSlider new];
+    l_slider.frame = CGRectMake(50, 250, 300, 40);
+    l_slider.slider.value = 0.3;
+    l_slider.slider.traceImageView.image = [UIImage imageNamed:@"progress"];
+    l_slider.slider.thumbImageView.image = [UIImage imageNamed:@"thumb"];
+    l_slider.leftLabel.text = @"0";
+    l_slider.rightlabel.text = @"12";
+    l_slider.rightlabel.textColor = l_slider.leftLabel.textColor = [UIColor whiteColor];
+    [self.view addSubview:l_slider];
+    
+    
+    SJButtonSlider *b_slider = [SJButtonSlider new];
+    b_slider.frame = CGRectMake(50, 300, 300, 40);
+    b_slider.slider.value = 0.3;
+    b_slider.slider.traceImageView.image = [UIImage imageNamed:@"progress"];
+    b_slider.slider.thumbImageView.image = [UIImage imageNamed:@"thumb"];
+    b_slider.leftText = @"00:00";
+    b_slider.rightText = @"12:00";
+    b_slider.titleColor = [UIColor whiteColor];
+    [self.view addSubview:b_slider];
+
     
     NSLog(@"%@ - %@ - %@", slider0, slider1, slider2);
     

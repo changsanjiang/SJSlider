@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7712C7581FC2F46100E34407 /* SJLabelSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7712C7571FC2F46100E34407 /* SJLabelSlider.m */; };
+		7712C75B1FC2F46800E34407 /* SJButtonSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7712C75A1FC2F46800E34407 /* SJButtonSlider.m */; };
+		7712C75E1FC2F4F600E34407 /* SJCommonSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 7712C75D1FC2F4F600E34407 /* SJCommonSlider.m */; };
+		7712C7601FC2FB8600E34407 /* SJSlider.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 7712C75F1FC2FB8600E34407 /* SJSlider.podspec */; };
+		7712C7621FC2FBCA00E34407 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7712C7611FC2FBC900E34407 /* README.md */; };
+		7712C7641FC2FC2200E34407 /* WechatIMG86.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 7712C7631FC2FC2200E34407 /* WechatIMG86.jpeg */; };
+		7712C7661FC2FCE100E34407 /* WechatIMG88.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 7712C7651FC2FCE100E34407 /* WechatIMG88.jpeg */; };
+		7712C7681FC2FCF000E34407 /* WechatIMG87.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 7712C7671FC2FCF000E34407 /* WechatIMG87.jpeg */; };
+		7712C76A1FC2FD5800E34407 /* WechatIMG89.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 7712C7691FC2FD5800E34407 /* WechatIMG89.jpeg */; };
 		7736AF011EFD15A1007341CA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7736AF001EFD15A1007341CA /* main.m */; };
 		7736AF041EFD15A1007341CA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7736AF031EFD15A1007341CA /* AppDelegate.m */; };
 		7736AF071EFD15A1007341CA /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7736AF061EFD15A1007341CA /* ViewController.m */; };
@@ -22,6 +31,18 @@
 		0962524C52FD8358903D5056 /* Pods-SJSlider.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SJSlider.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SJSlider/Pods-SJSlider.debug.xcconfig"; sourceTree = "<group>"; };
 		49D17B2DEF84DC642A257D7F /* libPods-SJSlider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SJSlider.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E0AC0E311092298319F3C5E /* Pods-SJSlider.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SJSlider.release.xcconfig"; path = "Pods/Target Support Files/Pods-SJSlider/Pods-SJSlider.release.xcconfig"; sourceTree = "<group>"; };
+		7712C7561FC2F46100E34407 /* SJLabelSlider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJLabelSlider.h; sourceTree = "<group>"; };
+		7712C7571FC2F46100E34407 /* SJLabelSlider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJLabelSlider.m; sourceTree = "<group>"; };
+		7712C7591FC2F46800E34407 /* SJButtonSlider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJButtonSlider.h; sourceTree = "<group>"; };
+		7712C75A1FC2F46800E34407 /* SJButtonSlider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJButtonSlider.m; sourceTree = "<group>"; };
+		7712C75C1FC2F4F600E34407 /* SJCommonSlider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJCommonSlider.h; sourceTree = "<group>"; };
+		7712C75D1FC2F4F600E34407 /* SJCommonSlider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJCommonSlider.m; sourceTree = "<group>"; };
+		7712C75F1FC2FB8600E34407 /* SJSlider.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SJSlider.podspec; path = ../SJSlider.podspec; sourceTree = "<group>"; };
+		7712C7611FC2FBC900E34407 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		7712C7631FC2FC2200E34407 /* WechatIMG86.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = WechatIMG86.jpeg; sourceTree = "<group>"; };
+		7712C7651FC2FCE100E34407 /* WechatIMG88.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = WechatIMG88.jpeg; sourceTree = "<group>"; };
+		7712C7671FC2FCF000E34407 /* WechatIMG87.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = WechatIMG87.jpeg; sourceTree = "<group>"; };
+		7712C7691FC2FD5800E34407 /* WechatIMG89.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = WechatIMG89.jpeg; sourceTree = "<group>"; };
 		7736AEFC1EFD15A1007341CA /* SJSlider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SJSlider.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7736AF001EFD15A1007341CA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7736AF021EFD15A1007341CA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -69,6 +90,8 @@
 		7736AEF31EFD15A1007341CA = {
 			isa = PBXGroup;
 			children = (
+				7712C75F1FC2FB8600E34407 /* SJSlider.podspec */,
+				7712C7611FC2FBC900E34407 /* README.md */,
 				7736AEFE1EFD15A1007341CA /* SJSlider */,
 				7736AEFD1EFD15A1007341CA /* Products */,
 				1074E9235CEDEB4381C889F6 /* Pods */,
@@ -100,6 +123,10 @@
 		7736AEFF1EFD15A1007341CA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7712C7631FC2FC2200E34407 /* WechatIMG86.jpeg */,
+				7712C7651FC2FCE100E34407 /* WechatIMG88.jpeg */,
+				7712C7671FC2FCF000E34407 /* WechatIMG87.jpeg */,
+				7712C7691FC2FD5800E34407 /* WechatIMG89.jpeg */,
 				7736AF081EFD15A1007341CA /* Main.storyboard */,
 				77BF9F251F375187008A4735 /* sample.png */,
 				7736AF0B1EFD15A1007341CA /* Assets.xcassets */,
@@ -115,6 +142,12 @@
 			children = (
 				778252BA1F3F1C0E006F5156 /* SJSlider.h */,
 				778252BB1F3F1C0E006F5156 /* SJSlider.m */,
+				7712C75C1FC2F4F600E34407 /* SJCommonSlider.h */,
+				7712C75D1FC2F4F600E34407 /* SJCommonSlider.m */,
+				7712C7561FC2F46100E34407 /* SJLabelSlider.h */,
+				7712C7571FC2F46100E34407 /* SJLabelSlider.m */,
+				7712C7591FC2F46800E34407 /* SJButtonSlider.h */,
+				7712C75A1FC2F46800E34407 /* SJButtonSlider.m */,
 			);
 			name = SJSlider;
 			path = ../../SJSlider;
@@ -182,8 +215,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7712C7681FC2FCF000E34407 /* WechatIMG87.jpeg in Resources */,
+				7712C7621FC2FBCA00E34407 /* README.md in Resources */,
+				7712C76A1FC2FD5800E34407 /* WechatIMG89.jpeg in Resources */,
 				7736AF0F1EFD15A1007341CA /* LaunchScreen.storyboard in Resources */,
 				7736AF0C1EFD15A1007341CA /* Assets.xcassets in Resources */,
+				7712C7601FC2FB8600E34407 /* SJSlider.podspec in Resources */,
+				7712C7641FC2FC2200E34407 /* WechatIMG86.jpeg in Resources */,
+				7712C7661FC2FCE100E34407 /* WechatIMG88.jpeg in Resources */,
 				7736AF0A1EFD15A1007341CA /* Main.storyboard in Resources */,
 				77BF9F261F375187008A4735 /* sample.png in Resources */,
 			);
@@ -244,8 +283,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7712C75E1FC2F4F600E34407 /* SJCommonSlider.m in Sources */,
 				7736AF071EFD15A1007341CA /* ViewController.m in Sources */,
 				778252BE1F3F1C0E006F5156 /* SJSlider.m in Sources */,
+				7712C7581FC2F46100E34407 /* SJLabelSlider.m in Sources */,
+				7712C75B1FC2F46800E34407 /* SJButtonSlider.m in Sources */,
 				7736AF041EFD15A1007341CA /* AppDelegate.m in Sources */,
 				7736AF011EFD15A1007341CA /* main.m in Sources */,
 			);
