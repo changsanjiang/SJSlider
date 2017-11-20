@@ -6,11 +6,14 @@ pod 'SJSlider'
 ### 进度(支持 AutoLayout)
 <img src = "https://github.com/changsanjiang/SJSlider/blob/master/SJSliderProjectFile/SJSlider/WechatIMG88.jpeg" >
 ```Objective-C    
+
     SJSlider *slider = [SJSlider new];
     [self.view addSubview:slider];
     slider.frame = CGRectMake(20, 100, 200, 10);
-    slider.value = 0.5;    
+    slider.value = 0.5;      
+    
 ```    
+
 ___   
 
 ### 滑块 + 不切圆角
