@@ -10,7 +10,7 @@ pod 'SJSlider'
     [self.view addSubview:slider];
     slider.frame = CGRectMake(20, 100, 200, 10);
     slider.value = 0.5;
-```
+```    
 ___   
 
 ### 滑块 + 不切圆角
