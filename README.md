@@ -1,7 +1,9 @@
 # SJSlider
-滑块视图     
-
-pod 'SJSlider'    
+滑块视图    
+```Ruby   
+    pod 'SJSlider'    
+```    
+___
 
 ### 进度(支持 AutoLayout)
 <img src = "https://github.com/changsanjiang/SJSlider/blob/master/SJSliderProjectFile/SJSlider/WechatIMG88.jpeg" >    
