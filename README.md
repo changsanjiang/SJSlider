@@ -9,7 +9,7 @@ pod 'SJSlider'
     SJSlider *slider = [SJSlider new];
     [self.view addSubview:slider];
     slider.frame = CGRectMake(20, 100, 200, 10);
-    slider.value = 0.5;
+    slider.value = 0.5;    
 ```    
 ___   
 
