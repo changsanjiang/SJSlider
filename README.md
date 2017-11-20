@@ -3,8 +3,6 @@
 
 pod 'SJSlider'    
 
-<img src="https://github.com/changsanjiang/SJSlider/blob/master/SJSliderProjectFile/SJSlider/sample.png" >
-
 ### 进度(支持 AutoLayout)
 <img src = "https://github.com/changsanjiang/SJSlider/blob/master/SJSliderProjectFile/SJSlider/WechatIMG88.jpeg" >
 ```Objective-C
@@ -13,7 +11,8 @@ pod 'SJSlider'
     slider.frame = CGRectMake(20, 100, 200, 10);
     slider.value = 0.5;
 ```
-___
+___   
+
 ### 滑块 + 不切圆角
 <img src = "https://github.com/changsanjiang/SJSlider/blob/master/SJSliderProjectFile/SJSlider/WechatIMG88.jpeg">    
 
@@ -25,7 +24,8 @@ ___
     slider.thumbImageView.image = [UIImage imageNamed:@"thumb"];
     slider.value = 0.5;
 ```
-___
+___    
+
 ### 缓冲
 <img src = "https://github.com/changsanjiang/SJSlider/blob/master/SJSliderProjectFile/SJSlider/WechatIMG87.jpeg">    
 
@@ -39,7 +39,8 @@ ___
     slider.enableBufferProgress = YES;
     slider.bufferProgress = 0.8;
 ```
-___
+___    
+
 ### 左右标签
 <img src = "https://github.com/changsanjiang/SJSlider/blob/master/SJSliderProjectFile/SJSlider/WechatIMG89.jpeg">    
 
