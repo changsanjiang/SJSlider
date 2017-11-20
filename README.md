@@ -5,7 +5,7 @@ pod 'SJSlider'
 
 ### 进度(支持 AutoLayout)
 <img src = "https://github.com/changsanjiang/SJSlider/blob/master/SJSliderProjectFile/SJSlider/WechatIMG88.jpeg" >
-```Objective-C
+```Objective-C    
     SJSlider *slider = [SJSlider new];
     [self.view addSubview:slider];
     slider.frame = CGRectMake(20, 100, 200, 10);
@@ -16,7 +16,7 @@ ___
 ### 滑块 + 不切圆角
 <img src = "https://github.com/changsanjiang/SJSlider/blob/master/SJSliderProjectFile/SJSlider/WechatIMG88.jpeg">    
 
-```Objective-C
+```Objective-C    
     SJSlider *slider = [SJSlider new];
     [self.view addSubview:slider];
     slider.isRound = NO;
@@ -29,7 +29,7 @@ ___
 ### 缓冲
 <img src = "https://github.com/changsanjiang/SJSlider/blob/master/SJSliderProjectFile/SJSlider/WechatIMG87.jpeg">    
 
-```Objective-C
+```Objective-C    
     SJSlider *slider = [SJSlider new];
     [self.view addSubview:slider];
     slider.isRound = NO;
@@ -44,7 +44,7 @@ ___
 ### 左右标签
 <img src = "https://github.com/changsanjiang/SJSlider/blob/master/SJSliderProjectFile/SJSlider/WechatIMG89.jpeg">    
 
-```Objective-C
+```Objective-C    
     SJButtonSlider *b_slider = [SJButtonSlider new];
     b_slider.frame = CGRectMake(50, 300, 300, 40);
     b_slider.slider.value = 0.3;
