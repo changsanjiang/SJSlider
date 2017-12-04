@@ -173,6 +173,7 @@
 }
 
 - (void)setValue:(CGFloat)value {
+    if ( isnan(value) ) return;
     if      ( value < self.minValue ) value = self.minValue;
     else if ( value > self.maxValue ) value = self.maxValue;
     _value = value;
