@@ -343,6 +343,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context  {
+    if ( 0 == self.containerView.csj_w ) return;
     if ( ![keyPath isEqualToString:@"value"] ) return;
     CGFloat rate = self.rate;
     CGFloat minX = _thumbImageView.csj_w * 0.25 / self.containerView.csj_w;
