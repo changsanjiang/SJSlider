@@ -166,6 +166,27 @@
     _containerView.isRound = isRound;
 }
 
+- (void)setThumbCornerRadius:(CGFloat)thumbCornerRadius size:(CGSize)size {
+    self.thumbImageView.layer.cornerRadius = thumbCornerRadius;
+    self.thumbImageView.layer.masksToBounds = NO;
+    if ( 0 != thumbCornerRadius ) {
+        self.thumbImageView.layer.shadowColor = [UIColor colorWithWhite:0.382 alpha:0.614].CGColor;
+        self.thumbImageView.layer.shadowOpacity = 1;
+        self.thumbImageView.layer.shadowOffset = CGSizeMake(0.001, 0.2);
+        self.thumbImageView.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:(CGRect){CGPointZero, size} cornerRadius:thumbCornerRadius].CGPath;
+        [self.thumbImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_offset(size);
+        }];
+    }
+    else {
+        self.thumbImageView.layer.shadowOpacity = 0;
+        [_thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(_thumbImageView.superview);
+            make.centerX.equalTo(_traceImageView.mas_trailing);
+        }];
+    }
+}
+
 - (void)setTrackHeight:(CGFloat)trackHeight {
     _trackHeight = trackHeight;
     [self.containerView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -307,7 +328,7 @@
 - (UIImageView *)thumbImageView {
     if ( _thumbImageView ) return _thumbImageView;
     _thumbImageView = [self imageViewWithImageStr:@""];
-    [self addSubview:self.thumbImageView];
+    [self addSubview:_thumbImageView];
     [_thumbImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(_thumbImageView.superview);
         make.centerX.equalTo(_traceImageView.mas_trailing);

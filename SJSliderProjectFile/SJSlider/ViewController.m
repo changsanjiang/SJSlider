@@ -114,6 +114,23 @@
     
     NSLog(@"%@ - %@ - %@", slider0, slider1, slider2);
     
+    SJSlider *slider3 = [SJSlider new];
+    slider3.frame = CGRectMake(50, 350, 300, 40);
+    slider3.backgroundColor = [UIColor colorWithWhite:0.382 alpha:0.614];
+
+    slider3.value = 0.3;
+   
+    // set thumb
+    slider3.thumbImageView.backgroundColor = [UIColor yellowColor];
+    [slider3 setThumbCornerRadius:8 size:CGSizeMake(16, 16)];
+    
+    // track height
+    slider3.trackHeight = 8;
+    
+    // border
+    slider3.visualBorder = YES;
+    slider3.borderColor = [UIColor orangeColor];
+    [self.view addSubview:slider3];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
