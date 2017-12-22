@@ -168,8 +168,8 @@
 
 - (void)setThumbCornerRadius:(CGFloat)thumbCornerRadius size:(CGSize)size {
     self.thumbImageView.layer.cornerRadius = thumbCornerRadius;
-    self.thumbImageView.layer.masksToBounds = NO;
     if ( 0 != thumbCornerRadius ) {
+        self.thumbImageView.layer.masksToBounds = NO;
         self.thumbImageView.layer.shadowColor = [UIColor colorWithWhite:0.382 alpha:0.614].CGColor;
         self.thumbImageView.layer.shadowOpacity = 1;
         self.thumbImageView.layer.shadowOffset = CGSizeMake(0.001, 0.2);
@@ -179,6 +179,7 @@
         }];
     }
     else {
+        self.thumbImageView.layer.masksToBounds = YES;
         self.thumbImageView.layer.shadowOpacity = 0;
         [_thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(_thumbImageView.superview);
