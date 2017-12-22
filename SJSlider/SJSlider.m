@@ -167,7 +167,14 @@
 }
 
 - (void)setThumbCornerRadius:(CGFloat)thumbCornerRadius size:(CGSize)size {
+    [self setThumbCornerRadius:thumbCornerRadius size:size thumbBackgroundColor:[UIColor greenColor]];
+}
+
+- (void)setThumbCornerRadius:(CGFloat)thumbCornerRadius
+                        size:(CGSize)size
+        thumbBackgroundColor:(UIColor *)thumbBackgroundColor {
     self.thumbImageView.layer.cornerRadius = thumbCornerRadius;
+    self.thumbImageView.backgroundColor = thumbBackgroundColor;
     if ( 0 != thumbCornerRadius ) {
         self.thumbImageView.layer.masksToBounds = NO;
         self.thumbImageView.layer.shadowColor = [UIColor colorWithWhite:0.382 alpha:0.614].CGColor;

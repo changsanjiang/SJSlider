@@ -35,8 +35,12 @@
  */
 @property (nonatomic, strong, readonly) UIImageView *thumbImageView;
 
-- (void)setThumbCornerRadius:(CGFloat)thumbCornerRadius size:(CGSize)size;
+- (void)setThumbCornerRadius:(CGFloat)thumbCornerRadius
+                        size:(CGSize)size;
 
+- (void)setThumbCornerRadius:(CGFloat)thumbCornerRadius
+                        size:(CGSize)size
+        thumbBackgroundColor:(UIColor *)thumbBackgroundColor;
 /*!
  *  当前进度值
  *  current Value
