@@ -15,7 +15,9 @@
 
 @end
 
-@implementation ViewController
+@implementation ViewController {
+    SJSlider *slider3;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -98,6 +100,7 @@
     l_slider.leftLabel.text = @"0";
     l_slider.rightlabel.text = @"12";
     l_slider.rightlabel.textColor = l_slider.leftLabel.textColor = [UIColor whiteColor];
+    l_slider.spacing = 20; // item spacing
     [self.view addSubview:l_slider];
     
     
@@ -109,17 +112,16 @@
     b_slider.leftText = @"00:00";
     b_slider.rightText = @"12:00";
     b_slider.titleColor = [UIColor whiteColor];
+    b_slider.spacing = 20; // item spacing
     [self.view addSubview:b_slider];
 
     
     NSLog(@"%@ - %@ - %@", slider0, slider1, slider2);
     
-    SJSlider *slider3 = [SJSlider new];
+    slider3 = [SJSlider new];
     slider3.frame = CGRectMake(50, 350, 300, 40);
     slider3.backgroundColor = [UIColor colorWithWhite:0.382 alpha:0.614];
-
-    slider3.value = 0.3;
-   
+    
     // set thumb
     slider3.thumbImageView.backgroundColor = [UIColor yellowColor];
     [slider3 setThumbCornerRadius:8 size:CGSizeMake(16, 16)];
@@ -131,9 +133,21 @@
     slider3.visualBorder = YES;
     slider3.borderColor = [UIColor orangeColor];
     [self.view addSubview:slider3];
+    
+    
+    slider3.minValue = 0;
+    slider3.maxValue = 400;
+    slider3.value = 100;
+    
+    // buffer
+    slider3.enableBufferProgress = YES;
+    
     // Do any additional setup after loading the view, typically from a nib.
 }
 
+- (IBAction)buffer:(UISlider *)sender {
+    slider3.bufferProgress = sender.value;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

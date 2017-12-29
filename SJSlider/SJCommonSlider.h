@@ -11,6 +11,9 @@
 
 @interface SJCommonSlider : UIView
 
+// default is 4.
+@property (nonatomic, assign) float spacing;
+
 @property (nonatomic, strong, readonly) UIView *leftContainerView;
 @property (nonatomic, strong, readonly) SJSlider *slider;
 @property (nonatomic, strong, readonly) UIView *rightContainerView;
