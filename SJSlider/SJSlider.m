@@ -74,6 +74,7 @@
  *  default is YES.
  */
 @property (nonatomic, assign, readwrite) BOOL isRound;
+
 @end
 
 @implementation SJContainerView
@@ -123,6 +124,9 @@
 @interface SJSlider ()
 
 @property (nonatomic, strong, readonly) SJContainerView *containerView;
+@property (nonatomic, strong, readonly) NSLayoutConstraint *thumbCenterXConstraint;
+@property (nonatomic, strong, readonly) NSLayoutConstraint *thumbLeadingConstraint;
+@property (nonatomic, strong, readonly) NSLayoutConstraint *thumbTrailingConstraint;
 
 @end
 
@@ -139,6 +143,9 @@
 @synthesize traceImageView = _traceImageView;
 @synthesize thumbImageView = _thumbImageView;
 @synthesize pan = _pan;
+@synthesize thumbCenterXConstraint = _thumbCenterXConstraint;
+@synthesize thumbLeadingConstraint = _thumbLeadingConstraint;
+@synthesize thumbTrailingConstraint = _thumbTrailingConstraint;
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -156,7 +163,7 @@
     return self;
 }
 
-// MARK: Setter
+#pragma mark - Setter
 
 - (void)setIsRound:(BOOL)isRound {
     _isRound = isRound;
@@ -190,6 +197,12 @@
             make.centerX.equalTo(_traceImageView.mas_trailing);
         }];
     }
+}
+
+- (void)setFixThumb:(CGFloat)fixThumb {
+    _fixThumb = fixThumb;
+    _thumbLeadingConstraint.constant = -_fixThumb;
+    _thumbTrailingConstraint.constant = _fixThumb;
 }
 
 - (void)setTrackHeight:(CGFloat)trackHeight {
@@ -237,14 +250,16 @@
     return (_value - _minValue) / ( _maxValue - _minValue);
 }
 
-// MARK: PanGR
-
 - (void)_SJSliderPanGR {
     _pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGR:)];
     [self addGestureRecognizer:_pan];
 }
 
 - (void)handlePanGR:(UIPanGestureRecognizer *)pan {
+    
+    CGFloat offset = [pan translationInView:pan.view].x;
+    self.value += ( offset / _containerView.csj_w) * ( _maxValue - _minValue );
+    [pan setTranslation:CGPointZero inView:pan.view];
     
     switch (pan.state) {
         case UIGestureRecognizerStateBegan: {
@@ -260,20 +275,17 @@
         case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateFailed:
         case UIGestureRecognizerStateCancelled: {
-            _isDragging = NO;
             if ( ![self.delegate respondsToSelector:@selector(sliderDidEndDragging:)] ) break;
             [self.delegate sliderDidEndDragging:self];
+            _isDragging = NO;
         }
             break;
         default:
             break;
     }
-    CGFloat offset = [pan translationInView:pan.view].x;
-    self.value += ( offset / _containerView.csj_w) * ( _maxValue - _minValue );
-    [pan setTranslation:CGPointZero inView:pan.view];
 }
 
-// MARK: UI
+#pragma mark -
 
 - (void)_SJSliderSetupUI {
     self.backgroundColor = [UIColor clearColor];
@@ -291,7 +303,8 @@
     }];
     
     [_traceImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.leading.bottom.offset(0);
+        make.top.bottom.offset(0);
+        make.leading.offset(0).priority(UILayoutPriorityDefaultLow);
     }];
 }
 
@@ -320,10 +333,29 @@
     if ( _thumbImageView ) return _thumbImageView;
     _thumbImageView = [self imageViewWithImageStr:@""];
     [self addSubview:_thumbImageView];
-    [_thumbImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(_thumbImageView.superview);
-        make.centerX.equalTo(_traceImageView.mas_trailing);
-    }];
+    
+    _thumbImageView.translatesAutoresizingMaskIntoConstraints = NO;
+    NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint constraintWithItem:_thumbImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_containerView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+    
+    _thumbCenterXConstraint = [NSLayoutConstraint constraintWithItem:_thumbImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_traceImageView attribute:NSLayoutAttributeTrailing multiplier:1 constant:0];
+    _thumbLeadingConstraint.priority = UILayoutPriorityDefaultLow;
+    
+    _thumbLeadingConstraint = [NSLayoutConstraint constraintWithItem:_thumbImageView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:_containerView attribute:NSLayoutAttributeLeading multiplier:1 constant:-_fixThumb];
+    _thumbLeadingConstraint.priority = UILayoutPriorityRequired;
+    
+    _thumbTrailingConstraint = [NSLayoutConstraint constraintWithItem:_thumbImageView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationLessThanOrEqual toItem:_containerView attribute:NSLayoutAttributeTrailing multiplier:1 constant:_fixThumb];
+    _thumbTrailingConstraint.priority = UILayoutPriorityRequired;
+
+    [self addConstraint:_thumbLeadingConstraint];
+    [self addConstraint:centerYConstraint];
+    [self addConstraint:_thumbCenterXConstraint];
+    [self addConstraint:_thumbTrailingConstraint];
+    
+    [_thumbImageView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [_thumbImageView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+    [_thumbImageView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [_thumbImageView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+    
     return _thumbImageView;
 }
 
@@ -337,8 +369,7 @@
 @end
 
 
-
-// MARK: Observers
+#pragma mark -
 
 @implementation SJSlider (DBObservers)
 
@@ -350,17 +381,20 @@
     [self removeObserver:self forKeyPath:@"value"];
 }
 
-static NSLayoutConstraint *__traceWidthConstraint;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context  {
     if ( ![keyPath isEqualToString:@"value"] ) return;
     CGFloat sub = _maxValue - _minValue;
     if ( sub == 0 ) return;
-    if ( __traceWidthConstraint ) {
-        [self.containerView removeConstraint:__traceWidthConstraint];
-    }
-    
-    __traceWidthConstraint = [NSLayoutConstraint constraintWithItem:self.traceImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeWidth multiplier:self.value / sub constant:0];
-    [self.containerView addConstraint:__traceWidthConstraint];
+
+    [self.containerView.constraints enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof NSLayoutConstraint * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ( obj.firstItem == _traceImageView ) {
+            if ( obj.firstAttribute == NSLayoutAttributeWidth ) {
+                [self.containerView removeConstraint:obj];
+            }
+        }
+    }];
+    NSLayoutConstraint *traceWidthConstraint = [NSLayoutConstraint constraintWithItem:self.traceImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeWidth multiplier:self.value / sub + 0.001 constant:0];
+    [self.containerView addConstraint:traceWidthConstraint];
 }
 
 @end
