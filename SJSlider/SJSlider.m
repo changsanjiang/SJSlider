@@ -215,9 +215,19 @@
 
 - (void)setValue:(CGFloat)value {
     if ( isnan(value) ) return;
-    if      ( value < self.minValue ) value = self.minValue;
-    else if ( value > self.maxValue ) value = self.maxValue;
+    if      ( value < _minValue ) value = _minValue;
+    else if ( value > _maxValue ) value = _maxValue;
     _value = value;
+}
+
+- (void)setMinValue:(CGFloat)minValue {
+    _minValue = minValue;
+    self.value = _value;
+}
+
+- (void)setMaxValue:(CGFloat)maxValue {
+    _maxValue = maxValue;
+    self.value = _value;
 }
 
 // MARK: 生命周期
@@ -243,11 +253,6 @@
     self.bufferProgress = 0;
     self.bufferProgressColor = [UIColor grayColor];
     
-}
-
-- (CGFloat)rate {
-    if ( 0 == _maxValue - _minValue ) return 0;
-    return (_value - _minValue) / ( _maxValue - _minValue);
 }
 
 - (void)_SJSliderPanGR {
@@ -393,7 +398,8 @@
             }
         }
     }];
-    NSLayoutConstraint *traceWidthConstraint = [NSLayoutConstraint constraintWithItem:self.traceImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeWidth multiplier:self.value / sub + 0.001 constant:0];
+    NSLog(@"%f ", _value);
+    NSLayoutConstraint *traceWidthConstraint = [NSLayoutConstraint constraintWithItem:self.traceImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeWidth multiplier:(_value - _minValue) / sub + 0.001 constant:0];
     [self.containerView addConstraint:traceWidthConstraint];
 }
 
