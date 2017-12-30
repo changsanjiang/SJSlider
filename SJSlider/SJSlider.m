@@ -398,7 +398,7 @@
             }
         }
     }];
-    NSLog(@"%f ", _value);
+
     NSLayoutConstraint *traceWidthConstraint = [NSLayoutConstraint constraintWithItem:self.traceImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeWidth multiplier:(_value - _minValue) / sub + 0.001 constant:0];
     [self.containerView addConstraint:traceWidthConstraint];
 }
