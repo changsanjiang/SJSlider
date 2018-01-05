@@ -134,13 +134,13 @@
 
     // border
     slider3.visualBorder = YES;
-    slider3.borderColor = [UIColor orangeColor];
+    slider3.borderColor = [UIColor purpleColor];
     [self.view addSubview:slider3];
 
 
     slider3.minValue = 0;
     slider3.maxValue = 400;
-    slider3.value = 100;
+    slider3.value = 50;
 
     // buffer
     slider3.enableBufferProgress = YES;
