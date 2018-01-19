@@ -67,6 +67,22 @@
 
 
 
+// MARK:
+
+@interface _SJImageView : UIImageView
+
+@property (nonatomic, copy) void(^layoutedCallBlock)(_SJImageView *imageView);
+
+@end
+
+@implementation _SJImageView
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    if ( _layoutedCallBlock ) _layoutedCallBlock(self);
+}
+
+@end
 
 
 @interface SJContainerView : UIView
@@ -166,12 +182,6 @@
     self.thumbImageView.backgroundColor = thumbBackgroundColor;
 }
 
-- (void)setFixThumb:(CGFloat)fixThumb {
-    _fixThumb = fixThumb;
-    _thumbLeadingConstraint.constant = -_fixThumb;
-    _thumbTrailingConstraint.constant = _fixThumb;
-}
-
 - (void)setTrackHeight:(CGFloat)trackHeight {
     if ( trackHeight == _trackHeight ) return;
     _trackHeight = trackHeight;
@@ -218,7 +228,7 @@
         }
     }];
     
-    CGFloat baseW = _thumbImageView.bounds.size.width * 0.5;
+    CGFloat baseW = _thumbImageView.bounds.size.width * 0.4;
     if ( 0 == baseW ) baseW = 0.001;
     NSLayoutConstraint *traceWidthConstraint =
     [NSLayoutConstraint constraintWithItem:_traceImageView
@@ -348,7 +358,7 @@
     if ( _thumbImageView ) return _thumbImageView;
     _thumbImageView = [self imageViewWithImageStr:@""];
     [self addSubview:_thumbImageView];
-    
+
     _thumbImageView.translatesAutoresizingMaskIntoConstraints = NO;
     NSLayoutConstraint *centerYConstraint =
     [NSLayoutConstraint constraintWithItem:_thumbImageView
@@ -373,22 +383,31 @@
                                  relatedBy:NSLayoutRelationGreaterThanOrEqual
                                     toItem:_containerView
                                  attribute:NSLayoutAttributeLeading
-                                multiplier:1 constant:-_fixThumb];
+                                multiplier:1 constant:0];
     _thumbLeadingConstraint.priority = UILayoutPriorityRequired;
     
     _thumbTrailingConstraint =
     [NSLayoutConstraint constraintWithItem:_thumbImageView
-                                 attribute:NSLayoutAttributeTrailing
+                                 attribute:NSLayoutAttributeCenterX
                                  relatedBy:NSLayoutRelationLessThanOrEqual
                                     toItem:_containerView
                                  attribute:NSLayoutAttributeTrailing
-                                multiplier:1 constant:_fixThumb];
+                                multiplier:1 constant:0];
     _thumbTrailingConstraint.priority = UILayoutPriorityRequired;
     
     [self addConstraint:_thumbLeadingConstraint];
     [self addConstraint:centerYConstraint];
     [self addConstraint:_thumbCenterXConstraint];
     [self addConstraint:_thumbTrailingConstraint];
+    
+    __weak typeof(self) _self = self;
+    [(_SJImageView *)_thumbImageView setLayoutedCallBlock:^(_SJImageView *imageView) {
+        __strong typeof(_self) self = _self;
+        if ( !self ) return;
+        CGFloat constant = imageView.bounds.size.width * 0.4;
+        self.thumbLeadingConstraint.constant = -constant;
+        self.thumbTrailingConstraint.constant = -constant;
+    }];
     
     [_thumbImageView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [_thumbImageView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
@@ -398,7 +417,7 @@
 }
 
 - (UIImageView *)imageViewWithImageStr:(NSString *)imageStr {
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageStr]];
+    UIImageView *imageView = [[_SJImageView alloc] initWithImage:[UIImage imageNamed:imageStr]];
     imageView.contentMode = UIViewContentModeCenter;
     imageView.clipsToBounds = YES;
     return imageView;

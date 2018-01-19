@@ -39,7 +39,6 @@
     SJSlider *slider1 = ({
         SJSlider *slider = [SJSlider new];
         slider.frame = CGRectMake(20, 150, 200, 10);
-        slider.fixThumb = 4;
         [self.view addSubview:slider];
 
         slider.value = 0.6;
@@ -98,7 +97,6 @@
     l_slider.slider.value = 0.3;
     l_slider.slider.traceImageView.image = [UIImage imageNamed:@"progress"];
     l_slider.slider.thumbImageView.image = [UIImage imageNamed:@"thumb"];
-    l_slider.slider.fixThumb = 4;
     l_slider.leftLabel.text = @"0";
     l_slider.rightlabel.text = @"12";
     l_slider.rightlabel.textColor = l_slider.leftLabel.textColor = [UIColor whiteColor];
@@ -111,7 +109,6 @@
     b_slider.slider.value = 0.3;
     b_slider.slider.traceImageView.image = [UIImage imageNamed:@"progress"];
     b_slider.slider.thumbImageView.image = [UIImage imageNamed:@"thumb"];
-    b_slider.slider.fixThumb = 4;
     b_slider.leftText = @"00:00";
     b_slider.rightText = @"12:00";
     b_slider.titleColor = [UIColor whiteColor];
