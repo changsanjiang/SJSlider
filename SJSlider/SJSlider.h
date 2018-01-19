@@ -70,6 +70,7 @@
  *  current Value
  */
 @property (nonatomic, assign, readwrite) CGFloat value;
+- (void)setValue:(CGFloat)value animated:(BOOL)animated;
 
 /*!
  *  default is 0.0;

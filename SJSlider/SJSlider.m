@@ -148,8 +148,6 @@
 - (void)setThumbCornerRadius:(CGFloat)thumbCornerRadius
                         size:(CGSize)size
         thumbBackgroundColor:(UIColor *)thumbBackgroundColor {
-    self.thumbImageView.layer.cornerRadius = thumbCornerRadius;
-    self.thumbImageView.backgroundColor = thumbBackgroundColor;
     if ( 0 != thumbCornerRadius ) {
         self.thumbImageView.layer.masksToBounds = NO;
         self.thumbImageView.layer.shadowColor = [UIColor colorWithWhite:0.382 alpha:0.614].CGColor;
@@ -161,13 +159,11 @@
         }];
     }
     else {
-        self.thumbImageView.layer.masksToBounds = YES;
-        self.thumbImageView.layer.shadowOpacity = 0;
-        [_thumbImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(_thumbImageView.superview);
-            make.centerX.equalTo(_traceImageView.mas_trailing);
-        }];
+        [_thumbImageView removeFromSuperview];
+        _thumbImageView = nil;
     }
+    self.thumbImageView.layer.cornerRadius = thumbCornerRadius;
+    self.thumbImageView.backgroundColor = thumbBackgroundColor;
 }
 
 - (void)setFixThumb:(CGFloat)fixThumb {
@@ -188,13 +184,31 @@
 }
 
 - (void)setValue:(CGFloat)value {
+    CGFloat oldValue = _value;
     if ( isnan(value) ) return;
     if      ( value < _minValue ) value = _minValue;
     else if ( value > _maxValue ) value = _maxValue;
+    if ( oldValue == value ) return;
     _value = value;
-    
+    [self _updateLayout];
+}
+
+- (void)setValue:(CGFloat)value animated:(BOOL)animated {
+    self.value = value;
+    if ( animated ) {
+        [self _anima];
+    }
+}
+
+- (void)_anima {
+    [UIView animateWithDuration:0.15 animations:^{
+        [self layoutIfNeeded];
+    }];
+}
+
+- (void)_updateLayout {
     CGFloat sub = _maxValue - _minValue;
-    if ( sub == 0 ) return;
+    if ( sub <= 0 ) return;
     
     [_containerView.constraints enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof NSLayoutConstraint * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ( obj.firstItem == _traceImageView ) {
@@ -204,7 +218,15 @@
         }
     }];
     
-    NSLayoutConstraint *traceWidthConstraint = [NSLayoutConstraint constraintWithItem:_traceImageView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_containerView attribute:NSLayoutAttributeWidth multiplier:(_value - _minValue) / sub + 0.001 constant:0];
+    CGFloat baseW = _thumbImageView.bounds.size.width * 0.5;
+    if ( 0 == baseW ) baseW = 0.001;
+    NSLayoutConstraint *traceWidthConstraint =
+    [NSLayoutConstraint constraintWithItem:_traceImageView
+                                 attribute:NSLayoutAttributeWidth
+                                 relatedBy:NSLayoutRelationEqual
+                                    toItem:_containerView
+                                 attribute:NSLayoutAttributeWidth
+                                multiplier:(_value - _minValue) / sub constant:baseW];
     [_containerView addConstraint:traceWidthConstraint];
 }
 
@@ -250,7 +272,8 @@
 - (void)handlePanGR:(UIPanGestureRecognizer *)pan {
     
     CGFloat offset = [pan translationInView:pan.view].x;
-    self.value += ( offset / _containerView.csj_w) * ( _maxValue - _minValue );
+    CGFloat add = ( offset / _containerView.csj_w) * ( _maxValue - _minValue );
+    [self setValue:self.value + add animated:YES];
     [pan setTranslation:CGPointZero inView:pan.view];
     
     switch (pan.state) {
@@ -327,15 +350,39 @@
     [self addSubview:_thumbImageView];
     
     _thumbImageView.translatesAutoresizingMaskIntoConstraints = NO;
-    NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint constraintWithItem:_thumbImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_containerView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+    NSLayoutConstraint *centerYConstraint =
+    [NSLayoutConstraint constraintWithItem:_thumbImageView
+                                 attribute:NSLayoutAttributeCenterY
+                                 relatedBy:NSLayoutRelationEqual
+                                    toItem:_containerView
+                                 attribute:NSLayoutAttributeCenterY
+                                multiplier:1 constant:0];
     
-    _thumbCenterXConstraint = [NSLayoutConstraint constraintWithItem:_thumbImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_traceImageView attribute:NSLayoutAttributeTrailing multiplier:1 constant:0];
+    _thumbCenterXConstraint =
+    [NSLayoutConstraint constraintWithItem:_thumbImageView
+                                 attribute:NSLayoutAttributeCenterX
+                                 relatedBy:NSLayoutRelationEqual
+                                    toItem:_traceImageView
+                                 attribute:NSLayoutAttributeTrailing
+                                multiplier:1 constant:0];
     _thumbLeadingConstraint.priority = UILayoutPriorityDefaultLow;
     
-    _thumbLeadingConstraint = [NSLayoutConstraint constraintWithItem:_thumbImageView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:_containerView attribute:NSLayoutAttributeLeading multiplier:1 constant:-_fixThumb];
+    _thumbLeadingConstraint =
+    [NSLayoutConstraint constraintWithItem:_thumbImageView
+                                 attribute:NSLayoutAttributeLeading
+                                 relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                    toItem:_containerView
+                                 attribute:NSLayoutAttributeLeading
+                                multiplier:1 constant:-_fixThumb];
     _thumbLeadingConstraint.priority = UILayoutPriorityRequired;
     
-    _thumbTrailingConstraint = [NSLayoutConstraint constraintWithItem:_thumbImageView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationLessThanOrEqual toItem:_containerView attribute:NSLayoutAttributeTrailing multiplier:1 constant:_fixThumb];
+    _thumbTrailingConstraint =
+    [NSLayoutConstraint constraintWithItem:_thumbImageView
+                                 attribute:NSLayoutAttributeTrailing
+                                 relatedBy:NSLayoutRelationLessThanOrEqual
+                                    toItem:_containerView
+                                 attribute:NSLayoutAttributeTrailing
+                                multiplier:1 constant:_fixThumb];
     _thumbTrailingConstraint.priority = UILayoutPriorityRequired;
     
     [self addConstraint:_thumbLeadingConstraint];
@@ -347,7 +394,6 @@
     [_thumbImageView setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
     [_thumbImageView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [_thumbImageView setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
-    
     return _thumbImageView;
 }
 
@@ -423,8 +469,15 @@
                 }
             }
         }];
-        NSLayoutConstraint *bufferProgressWidthConstraint = [NSLayoutConstraint constraintWithItem:bufferProgressView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.containerView attribute:NSLayoutAttributeWidth multiplier:bufferProgress constant:0];
+        NSLayoutConstraint *bufferProgressWidthConstraint =
+        [NSLayoutConstraint constraintWithItem:bufferProgressView
+                                     attribute:NSLayoutAttributeWidth
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:self.containerView
+                                     attribute:NSLayoutAttributeWidth
+                                    multiplier:bufferProgress constant:0];
         [self.containerView addConstraint:bufferProgressWidthConstraint];
+        [self _anima];
     });
 }
 
