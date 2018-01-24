@@ -479,26 +479,23 @@
     if      ( bufferProgress >= 0.99 ) bufferProgress = 1;
     else if ( bufferProgress < 0 ) bufferProgress = 0;
     objc_setAssociatedObject(self, @selector(bufferProgress), @(bufferProgress), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIView *bufferProgressView = [self bufferProgressView];
-        if ( !bufferProgressView.superview ) return ;
-        [self.containerView.constraints enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof NSLayoutConstraint * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ( obj.firstItem == bufferProgressView ) {
-                if ( obj.firstAttribute == NSLayoutAttributeWidth ) {
-                    [self.containerView removeConstraint:obj];
-                }
+    UIView *bufferProgressView = [self bufferProgressView];
+    if ( !bufferProgressView.superview ) return ;
+    [self.containerView.constraints enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof NSLayoutConstraint * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ( obj.firstItem == bufferProgressView ) {
+            if ( obj.firstAttribute == NSLayoutAttributeWidth ) {
+                [self.containerView removeConstraint:obj];
             }
-        }];
-        NSLayoutConstraint *bufferProgressWidthConstraint =
-        [NSLayoutConstraint constraintWithItem:bufferProgressView
-                                     attribute:NSLayoutAttributeWidth
-                                     relatedBy:NSLayoutRelationEqual
-                                        toItem:self.containerView
-                                     attribute:NSLayoutAttributeWidth
-                                    multiplier:bufferProgress constant:0];
-        [self.containerView addConstraint:bufferProgressWidthConstraint];
-        [self _anima];
-    });
+        }
+    }];
+    NSLayoutConstraint *bufferProgressWidthConstraint =
+    [NSLayoutConstraint constraintWithItem:bufferProgressView
+                                 attribute:NSLayoutAttributeWidth
+                                 relatedBy:NSLayoutRelationEqual
+                                    toItem:self.containerView
+                                 attribute:NSLayoutAttributeWidth
+                                multiplier:bufferProgress constant:0];
+    [self.containerView addConstraint:bufferProgressWidthConstraint];
 }
 
 - (UIView *)bufferProgressView {
