@@ -51,7 +51,6 @@
 
 - (UILabel *)_createLabel {
     UILabel *label = [UILabel new];
-//    label.adjustsFontSizeToFitWidth = YES;
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor blackColor];
     label.font = [UIFont systemFontOfSize:12];

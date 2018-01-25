@@ -476,7 +476,8 @@
 
 - (void)setBufferProgress:(CGFloat)bufferProgress {
     if ( isnan(bufferProgress) ) return;
-    if      ( bufferProgress >= 0.99 ) bufferProgress = 1;
+    bufferProgress += 0.001;
+    if      ( bufferProgress >= 1 ) bufferProgress = 1;
     else if ( bufferProgress < 0 ) bufferProgress = 0;
     objc_setAssociatedObject(self, @selector(bufferProgress), @(bufferProgress), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     UIView *bufferProgressView = [self bufferProgressView];

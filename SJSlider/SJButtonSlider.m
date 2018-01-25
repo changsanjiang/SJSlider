@@ -65,10 +65,8 @@
 
 - (UIButton *)_createButton {
     UIButton *btn = [UIButton new];
-    [btn setTitle:@"00" forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:12];
-//    btn.titleLabel.adjustsFontSizeToFitWidth = YES;
     [btn sizeToFit];
     return btn;
 }
