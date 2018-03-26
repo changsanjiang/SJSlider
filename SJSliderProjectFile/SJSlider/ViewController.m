@@ -110,11 +110,12 @@
     b_slider.rightText = @"00";
     b_slider.slider.value = 0.3;
     b_slider.slider.traceImageView.image = [UIImage imageNamed:@"progress"];
-    b_slider.slider.thumbImageView.image = [UIImage imageNamed:@"thumb"];
+//    b_slider.slider.thumbImageView.image = [UIImage imageNamed:@"thumb"];
     b_slider.leftText = @"00:00";
     b_slider.rightText = @"12:00";
     b_slider.titleColor = [UIColor whiteColor];
     b_slider.spacing = 20; // item spacing
+    [b_slider.slider setThumbCornerRadius:8 size:CGSizeMake(16, 16)];
     [self.view addSubview:b_slider];
 
 

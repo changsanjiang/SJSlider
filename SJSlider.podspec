@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = 'SJSlider'
-  s.version      = '1.2.4.1'
+  s.version      = '1.2.4.2'
   s.summary      = 'Slide view with buffer / slide / progress.'
   s.description  = 'https://github.com/changsanjiang/SJSlider/blob/master/README.md'
   s.homepage     = 'https://github.com/changsanjiang/SJSlider'
