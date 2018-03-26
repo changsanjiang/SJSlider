@@ -8,6 +8,8 @@
 
 #import "SJCommonSlider.h"
 #import <Masonry/Masonry.h>
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
 
 @interface SJCommonSlider ()
 
@@ -90,3 +92,4 @@
 }
 
 @end
+#pragma clang diagnostic pop

@@ -8,6 +8,8 @@
 
 #import "SJLabelSlider.h"
 #import <Masonry/Masonry.h>
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wimplicit-retain-self"
 
 @interface SJLabelSlider ()
 
@@ -59,3 +61,4 @@
     return label;
 }
 @end
+#pragma clang diagnostic pop
