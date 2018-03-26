@@ -8,8 +8,7 @@
 
 #import "SJButtonSlider.h"
 #import <Masonry/Masonry.h>
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wimplicit-retain-self"
+
 
 @interface SJButtonSlider ()
 @end
@@ -45,11 +44,11 @@
     [self.rightContainerView addSubview:self.rightBtn];
     
     [_leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(_leftBtn.superview);
+        make.center.equalTo(self->_leftBtn.superview);
     }];
     
     [_rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(_rightBtn.superview);
+        make.center.equalTo(self->_rightBtn.superview);
     }];
 }
 
@@ -74,4 +73,3 @@
 }
 
 @end
-#pragma clang diagnostic pop

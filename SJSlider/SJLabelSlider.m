@@ -8,8 +8,7 @@
 
 #import "SJLabelSlider.h"
 #import <Masonry/Masonry.h>
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wimplicit-retain-self"
+
 
 @interface SJLabelSlider ()
 
@@ -31,11 +30,11 @@
     [self.rightContainerView addSubview:self.rightlabel];
     
     [_leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(_leftLabel.superview);
+        make.center.equalTo(self->_leftLabel.superview);
     }];
     
     [_rightlabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(_rightlabel.superview);
+        make.center.equalTo(self->_rightlabel.superview);
     }];
 }
 
@@ -61,4 +60,3 @@
     return label;
 }
 @end
-#pragma clang diagnostic pop
