@@ -47,7 +47,7 @@
         slider.thumbImageView.image = [UIImage imageNamed:@"thumb"];
 
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            slider.isRound = NO;
+            slider.round = NO;
         });
 
         slider;
@@ -73,17 +73,17 @@
             slider.visualBorder = YES;
             slider.borderColor = [UIColor redColor];
             slider.borderWidth = 2;
-            slider.isRound = NO;
+            slider.round = NO;
 
             /// hidden border line.
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 slider.visualBorder = NO;
-                slider.isRound = YES;
+                slider.round = YES;
 
                 /// show
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     slider.visualBorder = YES;
-                    slider.isRound = NO;
+                    slider.round = NO;
                 });
 
             });
