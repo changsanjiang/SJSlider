@@ -117,6 +117,27 @@
 
 
 
+#pragma mark - Prompt
+/**
+           □           prompt
+ ----------○---------- slider
+ */
+@interface SJSlider (Prompt)
+
+/**
+ 
+ */
+@property (nonatomic) NSString *prompt;
+
+/**
+ 
+ */
+@property (nonatomic, strong, readwrite, nullable) UIView *customPromptView;
+
+@end
+
+
+
 #pragma mark - Buffer
 
 

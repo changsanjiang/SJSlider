@@ -7,9 +7,7 @@
 //
 
 #import "SJSlider.h"
-
 #import <Masonry/Masonry.h>
-
 #import <objc/message.h>
 
 
@@ -379,7 +377,6 @@
                                     toItem:_traceImageView
                                  attribute:NSLayoutAttributeTrailing
                                 multiplier:1 constant:0];
-    _thumbLeadingConstraint.priority = UILayoutPriorityDefaultLow;
     
     _thumbLeadingConstraint =
     [NSLayoutConstraint constraintWithItem:_thumbImageView
@@ -408,7 +405,8 @@
     [(_SJImageView *)_thumbImageView setLayoutedCallBlock:^(_SJImageView *imageView) {
         __strong typeof(_self) self = _self;
         if ( !self ) return;
-        CGFloat constant = imageView.bounds.size.width * 0.4;
+        CGFloat constant = ceil(imageView.bounds.size.width * 0.4);
+        if ( constant == ABS(self.thumbLeadingConstraint.constant) ) return;
         self.thumbLeadingConstraint.constant = -constant;
         self.thumbTrailingConstraint.constant = -constant;
         [self _updateLayout];
@@ -555,4 +553,28 @@
     return [objc_getAssociatedObject(self, _cmd) doubleValue];
 }
 
+@end
+
+
+
+#pragma mark - Prompt
+
+@implementation SJSlider (Prompt)
+
+- (void)setPrompt:(NSString *)prompt {
+//    _prompt = prompt;
+}
+
+- (NSString *)prompt {
+//    return _prompt;
+    return nil;
+}
+
+- (void)setCustomPromptView:(UIView *)customPromptView {
+    
+}
+
+- (UIView *)customPromptView {
+    return nil;
+}
 @end
