@@ -11,7 +11,7 @@
 #import "SJLabelSlider.h"
 #import "SJButtonSlider.h"
 
-@interface ViewController ()
+@interface ViewController ()<SJSliderDelegate>
 
 @end
 
@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = [UIColor purpleColor];
     
     
     // 普通状态
@@ -121,6 +121,11 @@
 
     NSLog(@"%@ - %@ - %@", slider0, slider1, slider2);
 
+    
+    
+    
+    
+    
     slider3 = [SJSlider new];
     slider3.frame = CGRectMake(50, 350, 300, 40);
     slider3.backgroundColor = [UIColor colorWithWhite:0.382 alpha:0.614];
@@ -135,8 +140,8 @@
     // border
     slider3.visualBorder = YES;
     slider3.borderColor = [UIColor purpleColor];
+    slider3.delegate = self;
     [self.view addSubview:slider3];
-
 
     slider3.minValue = 0;
     slider3.maxValue = 400;
@@ -144,6 +149,12 @@
 
     // buffer
     slider3.enableBufferProgress = YES;
+
+    
+    
+    slider3.promptLabel.textColor = [UIColor whiteColor];
+    slider3.promptLabel.font = [UIFont boldSystemFontOfSize:14];
+    slider3.promptSpacing = 6;
     
     // Do any additional setup after loading the view, typically from a nib.
 }
@@ -157,5 +168,18 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void)sliderWillBeginDragging:(SJSlider *)slider {
+    slider.promptLabel.hidden = NO;
+    slider.promptLabel.text = [NSString stringWithFormat:@"%.02f", slider.value];
+}
+
+- (void)sliderDidDrag:(SJSlider *)slider {
+    slider.promptLabel.text = [NSString stringWithFormat:@"%.02f", slider.value];
+}
+
+- (void)sliderDidEndDragging:(SJSlider *)slider {
+    slider.promptLabel.hidden = YES;
+}
 
 @end

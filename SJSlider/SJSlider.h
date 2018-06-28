@@ -82,6 +82,18 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
+#pragma mark - Prompt
+
+@interface SJSlider (Prompt)
+
+@property (nonatomic, strong, readonly) UILabel *promptLabel;
+
+/// default is 4.0
+@property (nonatomic) CGFloat promptSpacing;
+
+@end
+
+
 
 #pragma mark - Border
 @interface SJSlider (BorderLine)

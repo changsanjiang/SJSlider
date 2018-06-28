@@ -97,7 +97,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 #pragma mark -
-@implementation SJSlider
+@implementation SJSlider {
+    UILabel *_promptLabel;
+    NSLayoutConstraint *_promptLabelBottomConstraint;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -222,6 +225,7 @@ NS_ASSUME_NONNULL_BEGIN
     _minValue = 0;
     _round = YES;
     _value = 0;
+    self.promptSpacing = 4.0;
 }
 
 #pragma mark
@@ -303,6 +307,30 @@ NS_ASSUME_NONNULL_BEGIN
     _thumbImageView.bounds = (CGRect){CGPointZero, size};
     [self _needUpdateThumbLayout];
 }
+@end
+
+
+@implementation SJSlider (Prompt)
+
+- (UILabel *)promptLabel {
+    if ( _promptLabel ) return _promptLabel;
+    _promptLabel = [[UILabel alloc] init];
+    [self addSubview:_promptLabel];
+    _promptLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_promptLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_traceImageView attribute:NSLayoutAttributeTrailing multiplier:1 constant:0]];
+    [self addConstraint:_promptLabelBottomConstraint = [NSLayoutConstraint constraintWithItem:_promptLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_traceImageView attribute:NSLayoutAttributeTop multiplier:1 constant:-self.promptSpacing]];
+    return _promptLabel;
+}
+
+- (void)setPromptSpacing:(CGFloat)promptSpacing {
+    objc_setAssociatedObject(self, @selector(promptSpacing), @(promptSpacing), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    _promptLabelBottomConstraint.constant = -promptSpacing;
+}
+
+- (CGFloat)promptSpacing {
+    return [objc_getAssociatedObject(self, _cmd) floatValue];
+}
+
 @end
 
 
