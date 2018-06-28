@@ -72,6 +72,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong, readonly) UIPanGestureRecognizer *pan;
 
+/// 点击跳转的手势
+/// 当你想点击跳转时, 需要开启手势
+/// 默认是关闭, 即 tap.enabled = NO;
+@property (nonatomic, strong, readonly) UITapGestureRecognizer *tap;
+
 /*!
  *  The state of dragging.
  *

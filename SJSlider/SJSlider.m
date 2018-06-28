@@ -106,8 +106,8 @@ NS_ASSUME_NONNULL_BEGIN
     self = [super initWithFrame:frame];
     if ( !self ) return nil;
     [self _setupDefaultValues];
-    [self _setupGestrue];
     [self _setupView];
+    [self _setupGestrue];
     [self _needUpdateContainerCornerRadius];
     return self;
 }
@@ -115,7 +115,16 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark
 - (void)_setupGestrue {
     _pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGR:)];
+    _pan.delaysTouchesBegan = YES;
     [self addGestureRecognizer:_pan];
+    
+    _tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGR:)];
+    _tap.delaysTouchesBegan = YES;
+    [self addGestureRecognizer:_tap];
+
+    [_tap requireGestureRecognizerToFail:_pan];
+    
+    _tap.enabled = NO;
 }
 
 - (void)handlePanGR:(UIPanGestureRecognizer *)pan {
@@ -149,6 +158,13 @@ NS_ASSUME_NONNULL_BEGIN
         default:
             break;
     }
+}
+
+- (void)handleTapGR:(UITapGestureRecognizer *)tap {
+    if ( _containerView.frame.size.width == 0 ) return;
+    CGFloat point = [tap locationInView:tap.view].x;
+    CGFloat value = point / _containerView.frame.size.width * (_maxValue - _minValue);
+    [self setValue:value animated:YES];
 }
 
 #pragma mark -
@@ -214,7 +230,7 @@ NS_ASSUME_NONNULL_BEGIN
     add = ABS(add);
     CGFloat sum = _maxValue - _minValue;
     CGFloat scale = add / sum;
-    return _animaMaxDuration * scale;
+    return _animaMaxDuration * scale + 0.08/**/;
 }
 
 #pragma mark
