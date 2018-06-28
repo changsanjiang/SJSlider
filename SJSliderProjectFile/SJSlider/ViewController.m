@@ -10,6 +10,7 @@
 #import "SJSlider.h"
 #import "SJLabelSlider.h"
 #import "SJButtonSlider.h"
+#import <Masonry.h>
 
 @interface ViewController ()<SJSliderDelegate>
 
@@ -132,7 +133,7 @@
 
     // set thumb
     slider3.thumbImageView.backgroundColor = [UIColor yellowColor];
-    [slider3 setThumbCornerRadius:8 size:CGSizeMake(16, 16)];
+    [slider3 setThumbCornerRadius:20 size:CGSizeMake(40, 40)];
 
     // track height
     slider3.trackHeight = 8;
@@ -151,10 +152,17 @@
     slider3.enableBufferProgress = YES;
 
     
-    
     slider3.promptLabel.textColor = [UIColor whiteColor];
     slider3.promptLabel.font = [UIFont boldSystemFontOfSize:14];
     slider3.promptSpacing = 6;
+    
+    // 开启点击跳转
+    slider3.tap.enabled = YES;
+    
+    // 正在加载
+    slider3.isLoading = YES;
+    
+    slider3.loadingColor = [UIColor blackColor];
     
     // Do any additional setup after loading the view, typically from a nib.
 }
