@@ -302,6 +302,7 @@ NS_ASSUME_NONNULL_BEGIN
     _indicatorView.translatesAutoresizingMaskIntoConstraints = NO;
     [_thumbImageView addConstraint:[NSLayoutConstraint constraintWithItem:_indicatorView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_thumbImageView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
     [_thumbImageView addConstraint:[NSLayoutConstraint constraintWithItem:_indicatorView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_thumbImageView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self _needUpdateIndicatorTransform];
     return _indicatorView;
 }
 
@@ -341,12 +342,16 @@ NS_ASSUME_NONNULL_BEGIN
     if ( maxX <= margin ) maxX = margin;
     else if ( maxX >= width - margin ) maxX = width - margin;
     _thumbImageView.center = CGPointMake(maxX, height * 0.5);
-    _indicatorView.transform = CGAffineTransformMakeScale(_thumbImageView.bounds.size.width / 16 * 0.6, _thumbImageView.bounds.size.height / 16 * 0.6);
 }
 
 - (void)_updateThumbSize:(CGSize)size {
     _thumbImageView.bounds = (CGRect){CGPointZero, size};
     [self _needUpdateThumbLayout];
+    [self _needUpdateIndicatorTransform];
+}
+
+- (void)_needUpdateIndicatorTransform {
+    _indicatorView.transform = CGAffineTransformMakeScale(_thumbImageView.bounds.size.width / 16 * 0.6, _thumbImageView.bounds.size.height / 16 * 0.6);
 }
 @end
 
