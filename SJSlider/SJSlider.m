@@ -10,11 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SJImageView : UIImageView
-@property (nonatomic, copy) void(^setImageExeBlock)(SJImageView *imageView);
+@interface SJSliderImageView : UIImageView
+@property (nonatomic, copy) void(^setImageExeBlock)(SJSliderImageView *imageView);
 @end
 
-@implementation SJImageView
+@implementation SJSliderImageView
 - (void)setImage:(nullable UIImage *)image {
     [super setImage:image];
     if ( _setImageExeBlock ) _setImageExeBlock(self);
@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setEnableBufferProgress:(BOOL)enableBufferProgress {
     if ( enableBufferProgress == self.enableBufferProgress ) return;
     objc_setAssociatedObject(self, @selector(enableBufferProgress), @(enableBufferProgress), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         if ( enableBufferProgress ) {
             UIView *bufferView = [self bufferProgressView];
@@ -122,7 +122,7 @@ NS_ASSUME_NONNULL_BEGIN
     _tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGR:)];
     _tap.delaysTouchesBegan = YES;
     [self addGestureRecognizer:_tap];
-
+    
     [_tap requireGestureRecognizerToFail:_pan];
     
     _tap.enabled = NO;
@@ -133,7 +133,7 @@ NS_ASSUME_NONNULL_BEGIN
     CGFloat add = ( offset / _containerView.bounds.size.width) * ( _maxValue - _minValue );
     [self setValue:self.value + add animated:YES];
     [pan setTranslation:CGPointZero inView:pan.view];
-
+    
     switch ( pan.state ) {
         case UIGestureRecognizerStateBegan: {
             _isDragging = YES;
@@ -165,7 +165,8 @@ NS_ASSUME_NONNULL_BEGIN
     if ( _containerView.frame.size.width == 0 ) return;
     CGFloat point = [tap locationInView:tap.view].x;
     CGFloat value = point / _containerView.frame.size.width * (_maxValue - _minValue);
-    [self setValue:value animated:YES];
+    if ( _tappedExeBlock ) _tappedExeBlock(self, value);
+    else [self setValue:value animated:YES];
 }
 
 #pragma mark -
@@ -230,6 +231,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (CGFloat)_calculateAnimaDuration:(CGFloat)add {
     add = ABS(add);
     CGFloat sum = _maxValue - _minValue;
+    if ( isnan(sum) || sum <= 0 ) sum = 0.001;
     CGFloat scale = add / sum;
     return _animaMaxDuration * scale + 0.08/**/;
 }
@@ -262,8 +264,8 @@ NS_ASSUME_NONNULL_BEGIN
     _containerView = [UIView new];
     _containerView.clipsToBounds = YES;
     
-    SJImageView *(^makeImageView)(void) = ^SJImageView *{
-        SJImageView *imageView = [SJImageView new];
+    SJSliderImageView *(^makeImageView)(void) = ^SJSliderImageView *{
+        SJSliderImageView *imageView = [SJSliderImageView new];
         imageView.clipsToBounds = YES;
         imageView.contentMode = UIViewContentModeCenter;
         return imageView;
@@ -273,7 +275,7 @@ NS_ASSUME_NONNULL_BEGIN
     _trackImageView = makeImageView();
     _thumbImageView = makeImageView();
     __weak typeof(self) _self = self;
-    [(SJImageView *)_thumbImageView setSetImageExeBlock:^(SJImageView * _Nonnull imageView) {
+    [(SJSliderImageView *)_thumbImageView setSetImageExeBlock:^(SJSliderImageView * _Nonnull imageView) {
         __strong typeof(_self) self = _self;
         if ( !self ) return;
         imageView.bounds = (CGRect){CGPointZero, imageView.image.size};
@@ -330,6 +332,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)_needUpdateTraceLayout {
     CGFloat width = self.frame.size.width;
     CGFloat sum = _maxValue - _minValue;
+    if ( isnan(sum) || sum <= 0 ) sum = 0.001;
     _traceImageView.frame = CGRectMake(0, 0, width * (_value - _minValue) / sum, _trackHeight);
     [self _needUpdateThumbLayout];
 }
