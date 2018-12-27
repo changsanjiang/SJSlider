@@ -65,6 +65,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) CGFloat maxValue;
 
 /*!
+ *  default is 0;
+ */
+@property (nonatomic) CGFloat expand;
+
+/*!
+ *  default is 0.382;
+ *  0...1
+ */
+@property (nonatomic) float thumbOutsideSpace;
+
+/*!
  *  If you don't want to use this gesture, you can disable it
  *  pan.enable = NO.
  */
@@ -143,7 +154,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  *  缓冲进度颜色. default is grayColor
  */
-@property (nonatomic, strong, readwrite) UIColor *bufferProgressColor;
+@property (nonatomic, strong, null_resettable) UIColor *bufferProgressColor;
 
 /*!
  *  缓冲进度

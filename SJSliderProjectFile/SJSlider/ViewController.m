@@ -128,7 +128,7 @@
     
     
     slider3 = [SJSlider new];
-    slider3.frame = CGRectMake(50, 350, 300, 40);
+    slider3.frame = CGRectMake(50, 350, 300, 80);
     slider3.backgroundColor = [UIColor colorWithWhite:0.382 alpha:0.614];
 
     // set thumb
@@ -144,6 +144,8 @@
     slider3.delegate = self;
     [self.view addSubview:slider3];
 
+    slider3.expand = 30;             // 左右区域扩大30
+    slider3.thumbOutsideSpace = 0;   // 拇指越界比例
     slider3.minValue = 0;
     slider3.maxValue = 400;
 
