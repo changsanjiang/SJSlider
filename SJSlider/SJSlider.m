@@ -169,6 +169,10 @@ NS_ASSUME_NONNULL_BEGIN
     else if ( value_new > _maxValue ) value_new = _maxValue;
     _value = value_new;
     
+    if ( CGSizeEqualToSize(CGSizeZero, self.bounds.size) ) {
+        return;
+    }
+    
     if ( animated ) {
         CGFloat duration = 0;
         if ( animated ) duration = [self _calculateAnimaDuration:value_new - value_old];
@@ -253,6 +257,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - slider
 - (void)_needUpdateContainerLayout {
+    if ( CGSizeEqualToSize(CGSizeZero, self.bounds.size) ) {
+        return;
+    }
+    
     CGFloat maxW = self.frame.size.width;
     CGFloat maxH = self.frame.size.height;
     
@@ -277,9 +285,24 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)_needUpdateTraceLayout {
+    if ( isnan(_value) ||
+         isnan(_maxValue) ||
+         isnan(_minValue) ) {
+        return;
+    }
+    
+    if ( isinf(_value) ||
+         isinf(_maxValue) ||
+         isinf(_minValue) ) {
+        return;
+    }
+    
+    if ( _maxValue == _minValue ) {
+        return;
+    }
+    
     CGFloat maxW = _containerView.frame.size.width;
     CGFloat sum = _maxValue - _minValue;
-    if ( isnan(sum) || sum <= 0 ) sum = 0.001;
     CGFloat traceW = maxW * (_value - _minValue) / sum;
     CGFloat traceH = _containerView.frame.size.height;
     _traceImageView.frame = CGRectMake(0, 0, traceW, traceH);
