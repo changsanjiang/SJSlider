@@ -161,12 +161,12 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)setValue:(CGFloat)value_new animated:(BOOL)animated {
-    if ( _minValue > _maxValue ) return;
-    if ( isnan(value_new) ) return;
-    if ( value_new == _value ) return;
     CGFloat value_old = _value;
     if      ( value_new < _minValue ) value_new = _minValue;
     else if ( value_new > _maxValue ) value_new = _maxValue;
+
+    if ( _minValue >= _maxValue || value_new == _value || isnan(value_new) || isinf(value_new) )
+        return;
     _value = value_new;
     
     if ( CGSizeEqualToSize(CGSizeZero, self.bounds.size) ) {
@@ -278,6 +278,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)_needUpdateTrackLayout {
+    if ( CGSizeEqualToSize(CGSizeZero, self.bounds.size) ) {
+        return;
+    }
+    
     CGFloat trackW = _containerView.frame.size.width;
     CGFloat trackH = _containerView.frame.size.height;
     _trackImageView.frame = CGRectMake(0, 0, trackW, trackH);
@@ -285,6 +289,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)_needUpdateTraceLayout {
+    if ( CGSizeEqualToSize(CGSizeZero, self.bounds.size) ) {
+        return;
+    }
+    
     if ( isnan(_value) ||
          isnan(_maxValue) ||
          isnan(_minValue) ) {
@@ -297,7 +305,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     
-    if ( _maxValue == _minValue ) {
+    if ( _maxValue <= _minValue ) {
         return;
     }
     
@@ -310,6 +318,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)_needUpdateThumbLayout {
+    if ( CGSizeEqualToSize(CGSizeZero, self.bounds.size) ) {
+        return;
+    }
+    
+    if ( CGSizeEqualToSize(CGSizeZero, _thumbImageView.bounds.size) ) {
+        return;
+    }
+    
     CGFloat height = self.frame.size.height;
     
     CGFloat thumbW = _thumbImageView.frame.size.width;
@@ -383,6 +399,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)_needUpdateBufferLayout {
+    if ( CGSizeEqualToSize(CGSizeZero, self.bounds.size) ) {
+        return;
+    }
+    
     UIView *bufferView = [self bufferProgressView];
     CGFloat width = self.bufferProgress * self.containerView.frame.size.width;
     CGRect frame = bufferView.frame;
