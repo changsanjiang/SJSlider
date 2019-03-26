@@ -187,7 +187,7 @@
 				TargetAttributes = {
 					7736AEFB1EFD15A1007341CA = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = DB5B5F2RH5;
+						DevelopmentTeam = U5A7L7SMNP;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -197,6 +197,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -425,14 +426,14 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = DB5B5F2RH5;
+				DEVELOPMENT_TEAM = U5A7L7SMNP;
 				INFOPLIST_FILE = SJSlider/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SanJiang.SJSlider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fc05e35e-71e6-43c8-a64e-213ef06749a9";
-				PROVISIONING_PROFILE_SPECIFIER = SanJiangDevelopment;
+				PROVISIONING_PROFILE_SPECIFIER = WildcardProfile;
 			};
 			name = Debug;
 		};

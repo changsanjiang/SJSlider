@@ -2,7 +2,8 @@
 //  SJSlider.m
 //  Pods-SJSlider_Example
 //
-//  Created by BlueDancer on 2018/5/9.
+//  Created by BlueDancer on 2017/11/20.
+//  Copyright © 2017年 SanJiang. All rights reserved.
 //
 
 #import "SJSlider.h"
@@ -45,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 @implementation SJSlider {
     UILabel *_promptLabel;
     NSLayoutConstraint *_promptLabelBottomConstraint;
+    BOOL _isCancelled;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -67,6 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
     _thumbOutsideSpace = 0.382;
     self.promptSpacing = 4.0;
     _loadingColor = [UIColor blackColor];
+    _borderWidth = 0.4;
 }
 
 - (void)_setupGestrue {
@@ -97,6 +100,8 @@ NS_ASSUME_NONNULL_BEGIN
             }
         }
         case UIGestureRecognizerStateChanged: {
+            if ( _isCancelled )
+                return;
             if ( [self.delegate respondsToSelector:@selector(sliderDidDrag:)] ) {
                 [self.delegate sliderDidDrag:self];
             }
@@ -105,10 +110,11 @@ NS_ASSUME_NONNULL_BEGIN
         case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateFailed:
         case UIGestureRecognizerStateCancelled: {
-            if ( [self.delegate respondsToSelector:@selector(sliderDidEndDragging:)] ) {
+            if ( !_isCancelled && [self.delegate respondsToSelector:@selector(sliderDidEndDragging:)] ) {
                 [self.delegate sliderDidEndDragging:self];
             }
             _isDragging = NO;
+            _isCancelled = NO;
         }
             break;
         default:
@@ -122,6 +128,11 @@ NS_ASSUME_NONNULL_BEGIN
     CGFloat value = point / _containerView.frame.size.width * (_maxValue - _minValue);
     if ( _tappedExeBlock ) _tappedExeBlock(self, value);
     else [self setValue:value animated:YES];
+}
+
+- (void)cancelDragging {
+    _isCancelled = YES;
+    [_pan setValue:@(UIGestureRecognizerStateCancelled) forKey:@"state"];
 }
 
 #pragma mark -
@@ -161,17 +172,13 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)setValue:(CGFloat)value_new animated:(BOOL)animated {
+    if ( _minValue > _maxValue ) return;
+    if ( isnan(value_new) ) return;
+    if ( value_new == _value ) return;
     CGFloat value_old = _value;
     if      ( value_new < _minValue ) value_new = _minValue;
     else if ( value_new > _maxValue ) value_new = _maxValue;
-
-    if ( _minValue >= _maxValue || value_new == _value || isnan(value_new) || isinf(value_new) )
-        return;
     _value = value_new;
-    
-    if ( CGSizeEqualToSize(CGSizeZero, self.bounds.size) ) {
-        return;
-    }
     
     if ( animated ) {
         CGFloat duration = 0;
@@ -183,6 +190,10 @@ NS_ASSUME_NONNULL_BEGIN
     }
     else {
         [self _needUpdateTraceLayout];
+    }
+    
+    if ( [self.delegate respondsToSelector:@selector(sliderValueDidChange:)] ) {
+        [self.delegate sliderValueDidChange:self];
     }
 }
 
@@ -278,7 +289,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)_needUpdateTrackLayout {
-    if ( CGSizeEqualToSize(CGSizeZero, self.bounds.size) ) {
+    if ( CGSizeEqualToSize(CGSizeZero, _containerView.bounds.size) ) {
         return;
     }
     
@@ -289,23 +300,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)_needUpdateTraceLayout {
-    if ( CGSizeEqualToSize(CGSizeZero, self.bounds.size) ) {
-        return;
-    }
-    
-    if ( isnan(_value) ||
-         isnan(_maxValue) ||
-         isnan(_minValue) ) {
-        return;
-    }
-    
-    if ( isinf(_value) ||
-         isinf(_maxValue) ||
-         isinf(_minValue) ) {
-        return;
-    }
-    
-    if ( _maxValue <= _minValue ) {
+    if ( CGSizeEqualToSize(CGSizeZero, _containerView.bounds.size) ) {
         return;
     }
     
@@ -313,6 +308,15 @@ NS_ASSUME_NONNULL_BEGIN
     CGFloat sum = _maxValue - _minValue;
     CGFloat traceW = maxW * (_value - _minValue) / sum;
     CGFloat traceH = _containerView.frame.size.height;
+    
+    if ( isnan(traceW) || isinf(traceW) ) {
+        traceW = 0;
+    }
+    
+    if ( isnan(traceH) || isinf(traceH) ) {
+        traceH = 0;
+    }
+    
     _traceImageView.frame = CGRectMake(0, 0, traceW, traceH);
     [self _needUpdateThumbLayout];
 }
@@ -322,20 +326,20 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     
-    if ( CGSizeEqualToSize(CGSizeZero, _thumbImageView.bounds.size) ) {
-        return;
-    }
-    
     CGFloat height = self.frame.size.height;
     
     CGFloat thumbW = _thumbImageView.frame.size.width;
     CGFloat outside = ceil(_thumbImageView.frame.size.width * _thumbOutsideSpace);
     CGFloat minCenterX = _expand - outside + thumbW * 0.5;
     CGFloat maxCenterX = _containerView.bounds.size.width - thumbW * 0.5 + outside + _expand;
-
+    
     CGFloat tracePosition = _traceImageView.frame.size.width + _expand;
     if ( tracePosition <= minCenterX ) tracePosition = minCenterX;
     else if ( tracePosition >= maxCenterX ) tracePosition = maxCenterX;
+    
+    if ( isnan(tracePosition) || isinf(tracePosition) ) {
+        tracePosition = 0;
+    }
     _thumbImageView.center = CGPointMake(tracePosition, height * 0.5);
 }
 
@@ -399,10 +403,6 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)_needUpdateBufferLayout {
-    if ( CGSizeEqualToSize(CGSizeZero, self.bounds.size) ) {
-        return;
-    }
-    
     UIView *bufferView = [self bufferProgressView];
     CGFloat width = self.bufferProgress * self.containerView.frame.size.width;
     CGRect frame = bufferView.frame;
@@ -418,7 +418,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setVisualBorder:(BOOL)visualBorder {
     if ( _visualBorder == visualBorder ) return;
     if ( visualBorder ) {
-        _containerView.layer.borderColor = _borderColor.CGColor;
+        _containerView.layer.borderColor = self.borderColor.CGColor;
         _containerView.layer.borderWidth = _borderWidth;
     }
     else {
@@ -445,9 +445,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (CGFloat)borderWidth {
-    CGFloat width = [objc_getAssociatedObject(self, _cmd) doubleValue];
-    if ( width != 0 ) return width;
-    return 0.4;
+    return _borderWidth;
 }
 
 #pragma mark - prompt
