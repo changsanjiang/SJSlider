@@ -24,9 +24,18 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    if ( !self ) return nil;
-    [self _c_setupView];
-    self.spacing = 4;
+    if ( self ) {
+        [self _c_setupView];
+        self.spacing = 4;
+    }
+    return self;
+}
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if ( self ) {
+        [self _c_setupView];
+        self.spacing = 4;
+    }
     return self;
 }
 

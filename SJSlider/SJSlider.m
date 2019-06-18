@@ -51,11 +51,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    if ( !self ) return nil;
-    [self _setupDefaultValues];
-    [self _setupView];
-    [self _setupGestrue];
-    [self _needUpdateContainerCornerRadius];
+    if ( self ) {
+        [self _setupDefaultValues];
+        [self _setupView];
+        [self _setupGestrue];
+        [self _needUpdateContainerCornerRadius];
+    }
+    return self;
+}
+
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if ( self ) {
+        [self _setupDefaultValues];
+        [self _setupView];
+        [self _setupGestrue];
+        [self _needUpdateContainerCornerRadius];
+    }
     return self;
 }
 
@@ -124,7 +136,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)handleTapGR:(UITapGestureRecognizer *)tap {
     if ( _containerView.frame.size.width == 0 ) return;
-    CGFloat point = [tap locationInView:tap.view].x;
+    
+    CGFloat point = [self convertPoint:[tap locationInView:tap.view] toView:self.containerView].x;
     CGFloat value = point / _containerView.frame.size.width * (_maxValue - _minValue);
     if ( _tappedExeBlock ) _tappedExeBlock(self, value);
     else [self setValue:value animated:YES];

@@ -20,8 +20,17 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    if ( !self ) return nil;
-    [self _labelSetupView];
+    if ( self ) {
+        [self _labelSetupView];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if ( self ) {
+        [self _labelSetupView];
+    }
     return self;
 }
 
@@ -58,5 +67,40 @@
     label.text = @"0";
     [label sizeToFit];
     return label;
+}
+- (void)setLeftText:(nullable NSString *)leftText {
+    _leftLabel.text = leftText;
+}
+- (nullable NSString *)leftText {
+    return _leftLabel.text;
+}
+
+- (void)setRightText:(nullable NSString *)rightText {
+    _rightlabel.text = rightText;
+}
+- (NSString *)rightText {
+    return _rightlabel.text;
+}
+
+- (void)setLeftTextColor:(nullable UIColor *)leftTextColor {
+    _leftLabel.textColor = leftTextColor;
+}
+- (UIColor *)leftTextColor {
+    return _leftLabel.textColor;
+}
+
+- (void)setRightTextColor:(nullable UIColor *)rightTextColor {
+    _rightlabel.textColor = rightTextColor;
+}
+- (UIColor *)rightTextColor {
+    return _rightlabel.textColor;
+}
+
+- (void)setFont:(nullable UIFont *)font {
+    _leftLabel.font = font;
+    _rightlabel.font = font;
+}
+- (UIFont *)font {
+    return _leftLabel.font;
 }
 @end

@@ -21,8 +21,17 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    if ( !self ) return nil;
-    [self _buttonSetupView];
+    if ( self ) {
+        [self _buttonSetupView];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if ( self ) {
+        [self _buttonSetupView];
+    }
     return self;
 }
 

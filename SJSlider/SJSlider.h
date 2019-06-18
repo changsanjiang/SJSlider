@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id <SJSliderDelegate>delegate;
 
-/// Defualt is YES. 是否切园角. 默认YES
+/// Defualt is YES. 是否切圆角. 默认YES
 @property (nonatomic, getter=isRound) BOOL round;
 
 /// Track height. default is 8.0. 轨道高度
