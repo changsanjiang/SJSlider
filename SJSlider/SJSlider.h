@@ -127,7 +127,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  visual border line.
  *  default is NO.
  */
-@property (nonatomic) BOOL visualBorder;
+@property (nonatomic) BOOL showsBorder;
 
 /*!
  *  borderColor
@@ -151,7 +151,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  *  开启缓冲进度. default is NO.
  */
-@property (nonatomic) BOOL enableBufferProgress;
+@property (nonatomic) BOOL showsBufferProgress;
 
 /*!
  *  缓冲进度颜色. default is grayColor

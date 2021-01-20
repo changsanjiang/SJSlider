@@ -29,12 +29,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// buffer
 @property (nonatomic, strong) UIView *bufferProgressView;
 @property (nonatomic, strong) UIColor *bufferProgressColor;
-@property (nonatomic) BOOL enableBufferProgress;
+@property (nonatomic) BOOL showsBufferProgress;
 @property (nonatomic) CGFloat bufferProgress;
 
 /// border
 @property (null_resettable, nonatomic, strong) UIColor *borderColor;
-@property (nonatomic) BOOL visualBorder;
+@property (nonatomic) BOOL showsBorder;
 @property (nonatomic) CGFloat borderWidth;
 
 /// prompt
@@ -293,7 +293,7 @@ NS_ASSUME_NONNULL_BEGIN
     _containerView.bounds = (CGRect){0, 0, containerW, contaienrH};
     _containerView.center = (CGPoint){maxW * 0.5, maxH * 0.5};
     [self _needUpdateTrackLayout];
-    if ( self.enableBufferProgress ) [self _needUpdateBufferLayout];
+    if ( self.showsBufferProgress ) [self _needUpdateBufferLayout];
 }
 
 - (void)_needUpdateContainerCornerRadius {
@@ -368,11 +368,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - buffer
 
-- (void)setEnableBufferProgress:(BOOL)enableBufferProgress {
-    if ( enableBufferProgress == _enableBufferProgress ) return;
-    _enableBufferProgress = enableBufferProgress;
+- (void)setShowsBufferProgress:(BOOL)showsBufferProgress {
+    if ( showsBufferProgress == _showsBufferProgress ) return;
+    _showsBufferProgress = showsBufferProgress;
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ( enableBufferProgress ) {
+        if ( showsBufferProgress ) {
             UIView *bufferView = [self bufferProgressView];
             [self.containerView insertSubview:bufferView aboveSubview:self.trackImageView];
             bufferView.frame = CGRectMake(0, 0, 0, self.containerView.frame.size.height);
@@ -427,10 +427,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - border
 
-@synthesize visualBorder = _visualBorder;
-- (void)setVisualBorder:(BOOL)visualBorder {
-    if ( _visualBorder == visualBorder ) return;
-    if ( visualBorder ) {
+@synthesize showsBorder = _showsBorder;
+- (void)setShowsBorder:(BOOL)showsBorder {
+    if ( _showsBorder == showsBorder ) return;
+    if ( showsBorder ) {
         _containerView.layer.borderColor = self.borderColor.CGColor;
         _containerView.layer.borderWidth = _borderWidth;
     }
@@ -443,7 +443,7 @@ NS_ASSUME_NONNULL_BEGIN
 @synthesize borderColor = _borderColor;
 - (void)setBorderColor:(UIColor * __nullable)borderColor {
     _borderColor = borderColor;
-    if ( _visualBorder ) _containerView.layer.borderColor = borderColor.CGColor;
+    if ( _showsBorder ) _containerView.layer.borderColor = borderColor.CGColor;
 }
 
 - (UIColor *)borderColor {
@@ -454,7 +454,7 @@ NS_ASSUME_NONNULL_BEGIN
 @synthesize borderWidth = _borderWidth;
 - (void)setBorderWidth:(CGFloat)borderWidth {
     _borderWidth = borderWidth;
-    if ( _visualBorder ) _containerView.layer.borderWidth = borderWidth;
+    if ( _showsBorder ) _containerView.layer.borderWidth = borderWidth;
 }
 
 - (CGFloat)borderWidth {
