@@ -65,25 +65,21 @@
 
         slider.traceImageView.image = [UIImage imageNamed:@"progress"];
 
-        slider.enableBufferProgress = YES;
         slider.bufferProgress = 0.8;
 
 
         /// show border line.
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            slider.visualBorder = YES;
             slider.borderColor = [UIColor redColor];
             slider.borderWidth = 2;
             slider.round = NO;
 
             /// hidden border line.
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                slider.visualBorder = NO;
                 slider.round = YES;
 
                 /// show
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    slider.visualBorder = YES;
                     slider.round = NO;
                 });
 
@@ -139,7 +135,6 @@
     slider3.trackHeight = 8;
 
     // border
-    slider3.visualBorder = YES;
     slider3.borderColor = [UIColor purpleColor];
     slider3.delegate = self;
     [self.view addSubview:slider3];
@@ -148,11 +143,6 @@
     slider3.thumbOutsideSpace = 0;   // 拇指越界比例
     slider3.minValue = 0;
     slider3.maxValue = 400;
-
-
-    // buffer
-    slider3.enableBufferProgress = YES;
-
     
     slider3.promptLabel.textColor = [UIColor whiteColor];
     slider3.promptLabel.font = [UIFont boldSystemFontOfSize:14];

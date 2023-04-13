@@ -1,12 +1,16 @@
 PODS:
-  - Masonry (1.0.2)
+  - Masonry (1.1.0)
 
 DEPENDENCIES:
   - Masonry
 
+SPEC REPOS:
+  trunk:
+    - Masonry
+
 SPEC CHECKSUMS:
-  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
 
-PODFILE CHECKSUM: b47d20b51e8129cff419eeb8cb28a44582a300f7
+PODFILE CHECKSUM: 9446a36a85156dd58e06b847a4b0a0addac8e189
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.12.0
